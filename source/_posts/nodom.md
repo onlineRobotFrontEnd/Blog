@@ -1,5 +1,6 @@
 ---
 title: Nodom.js前端框架介绍
+date: 2020-1-1
 author: zhangzhihui
 category: js framework
 tags:
