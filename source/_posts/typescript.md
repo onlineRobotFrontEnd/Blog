@@ -1,6 +1,15 @@
-# typescript
-首先要安装typescript
+---
+title: typescript
+date: 2020-5-27
+author: zhangqing
+category: JS
+tags:
+- JS
+---
 
+# typescript详解
+<!--more-->
+首先要安装typescript
 
 ## 基本数据类型：
 一、布尔类型：  
