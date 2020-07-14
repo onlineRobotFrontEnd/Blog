@@ -1,11 +1,14 @@
 ---
 title: VPN
-date: 2020-6-28
+date: 2020-7-14
 author: zhangzhihui
 category: VPN V2Ray
 tags:
 - VPN, V2Ray
 ---
+
+# VPN
+<!-- more -->
 
 ## V2Ray是什么
 
