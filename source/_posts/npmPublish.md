@@ -1,5 +1,6 @@
 ---
 title: 如何创建并发布自己的npm包
+date: 2020-03-14
 author: leonliu
 category: npm
 tags:
