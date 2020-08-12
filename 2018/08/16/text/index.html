@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/Blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/Blog/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon.ico?v=6.3.0">
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/Blog/',
+    scheme: 'Gemini',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="参考链接：  css.doyoe.com css2.1中文版 MDN  一.text-transformtext-transform 属性指定如何将元素的文本进行大小写变形。它可以用于使文本显示为全大写或全小写，也可单独对每一个单词进行操作。">
+<meta name="keywords" content="css基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="css属性:文本(Text)">
+<meta property="og:url" content="https://onlinerobotfrontend.github.io/Blog/2018/08/16/text/index.html">
+<meta property="og:site_name" content="OnlineRobotFrontEnd">
+<meta property="og:description" content="参考链接：  css.doyoe.com css2.1中文版 MDN  一.text-transformtext-transform 属性指定如何将元素的文本进行大小写变形。它可以用于使文本显示为全大写或全小写，也可单独对每一个单词进行操作。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-08-05T13:06:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="css属性:文本(Text)">
+<meta name="twitter:description" content="参考链接：  css.doyoe.com css2.1中文版 MDN  一.text-transformtext-transform 属性指定如何将元素的文本进行大小写变形。它可以用于使文本显示为全大写或全小写，也可单独对每一个单词进行操作。">
+
+
+
+
+
+
+  <link rel="canonical" href="https://onlinerobotfrontend.github.io/Blog/2018/08/16/text/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>css属性:文本(Text) | OnlineRobotFrontEnd</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/Blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OnlineRobotFrontEnd</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">技术博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/Blog/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/Blog/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/Blog/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/Blog/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://onlinerobotfrontend.github.io/Blog/Blog/2018/08/16/text/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OnlineRobotFrontEnd">
+      <meta itemprop="description" content="京东数科在线机器人前端团队">
+      <meta itemprop="image" content="/Blog/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OnlineRobotFrontEnd">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">css属性:文本(Text)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-08-16 00:00:00" itemprop="dateCreated datePublished" datetime="2018-08-16T00:00:00+08:00">2018-08-16</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-08-05 21:06:22" itemprop="dateModified" datetime="2020-08-05T21:06:22+08:00">2020-08-05</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/Blog/categories/css-basic/" itemprop="url" rel="index"><span itemprop="name">css basic</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>参考链接：</p>
+<ul>
+<li><a href="https://css.doyoe.com/" target="_blank" rel="noopener">css.doyoe.com</a></li>
+<li><a href="http://www.ayqy.net/doc/css2-1/cover.html" target="_blank" rel="noopener">css2.1中文版</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS" target="_blank" rel="noopener">MDN</a></li>
+</ul>
+<h2 id="一-text-transform"><a href="#一-text-transform" class="headerlink" title="一.text-transform"></a>一.text-transform</h2><p><strong>text-transform</strong> 属性指定如何将元素的文本进行大小写变形。它可以用于使文本显示为全大写或全小写，也可单独对每一个单词进行操作。</p>
+<a id="more"></a>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">初始值              none</span><br><span class="line">适用元素            all elements. It also applies to ::first-letter and ::first-line.</span><br><span class="line">是否是继承属性      yes</span><br><span class="line">适用媒体            visual</span><br><span class="line">计算值              as specified</span><br><span class="line">Animation type      discrete</span><br><span class="line">正规顺序            the unique non-ambiguous order defined by the formal grammar</span><br></pre></td></tr></table></figure>
+<h4 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/* Keyword values */</span><br><span class="line">text-transform: capitalize;</span><br><span class="line">text-transform: uppercase;</span><br><span class="line">text-transform: lowercase;</span><br><span class="line">text-transform: none;</span><br><span class="line">text-transform: full-width;</span><br><span class="line"></span><br><span class="line">/* Global values */</span><br><span class="line">text-transform: inherit;</span><br><span class="line">text-transform: initial;</span><br><span class="line">text-transform: unset;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>capitalize:</strong>   将文本中的每个单词以大写字母开头(只会对每个单词第一个字母做变形，对其他字母保持不变)</li>
+<li><strong>uppercase:</strong>    将文本中的所有字符变为大写</li>
+<li><strong>lowercase：</strong>   将文本中的所有字符变为小写</li>
+<li><strong>none：</strong>    默认值，不对文本进行大小写转换</li>
+<li><strong>full-width：</strong>  将所有字符转换成fullwidth形式。如果字符没有相应的fullwidth形式，将保留原样。这个值通常用于排版拉丁字符和数字等表意符号。(全角)</li>
+</ul>
+<p><a href="https://codepen.io/lord2416/pen/VBMmEv" target="_blank" rel="noopener">text-transform代码演示</a></p>
+<h2 id="二、white-space"><a href="#二、white-space" class="headerlink" title="二、white-space"></a>二、white-space</h2><p><strong>white-space</strong> 属性是用来设置如何处理元素中的空白。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">初始值              normal</span><br><span class="line">适用元素            all elements</span><br><span class="line">是否是继承属性      yes</span><br><span class="line">适用媒体            visual</span><br><span class="line">计算值              as specified</span><br><span class="line">Animation type      discrete</span><br><span class="line">正规顺序            the unique non-ambiguous order defined by the formal grammar</span><br></pre></td></tr></table></figure>
+<p>语法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">white-space: normal</span><br><span class="line">white-space: nowrap</span><br><span class="line">white-space: pre</span><br><span class="line">white-space: pre-wrap</span><br><span class="line">white-space: pre-line</span><br><span class="line"></span><br><span class="line">white-space: inherit</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>normal</strong>    默认值,连续的空白符会被合并，换行符会被当作空白符来处理。填充line盒子时，必要的话会换行。</li>
+<li><strong>nowrap</strong>    和 normal 一样，连续的空白符会被合并。但文本内的换行无效。</li>
+<li><strong>pre</strong>   连续的空白符会被保留。在遇到换行符或者<br>元素时才会换行。</li>
+<li><strong>pre-wrap</strong>  连续的空白符会被保留。在遇到换行符或者<br>元素，或者需要为了填充line盒子时才会换行。</li>
+<li><strong>pre-line</strong>  连续的空白符会被合并。在遇到换行符或者<br>元素，或者需要为了填充line盒子时会换行。</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>—</th>
+<th>换行符</th>
+<th>空格和制表符</th>
+<th>文字转行</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>normal</td>
+<td>合并</td>
+<td>合并</td>
+<td>转行</td>
+</tr>
+<tr>
+<td>nowrap</td>
+<td>合并</td>
+<td>合并</td>
+<td>不转行</td>
+</tr>
+<tr>
+<td>pre</td>
+<td>保留</td>
+<td>保留</td>
+<td>不转行</td>
+</tr>
+<tr>
+<td>pre-wrap</td>
+<td>保留</td>
+<td>保留</td>
+<td>转行</td>
+</tr>
+<tr>
+<td>pre-line</td>
+<td>保留</td>
+<td>合并</td>
+<td>转行</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://codepen.io/lord2416/pen/NBavjK" target="_blank" rel="noopener">white-space代码示例</a></p>
+<h2 id="三、tab-size"><a href="#三、tab-size" class="headerlink" title="三、tab-size"></a>三、tab-size</h2><p><strong>tab-size</strong> 定义元素内容中制表符的长度。(a tab (U+0009) character),只有当white-space的属性值为：pre | pre-wrap时，该属性的定义才有效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">初始值	        8</span><br><span class="line">适用元素	    block containers</span><br><span class="line">是否是继承属性	yes</span><br><span class="line">适用媒体	    visual</span><br><span class="line">计算值	        the specified integer or an absolute length</span><br><span class="line">Animation type	a length</span><br><span class="line">正规顺序	    the unique non-ambiguous order defined by the formal grammar</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">/* &lt;integer&gt; values */</span><br><span class="line">tab-size: 4;</span><br><span class="line">tab-size: 0;</span><br><span class="line"></span><br><span class="line">/* &lt;length&gt; values */</span><br><span class="line">tab-size: 10px;</span><br><span class="line">tab-size: 2em;</span><br><span class="line"></span><br><span class="line">/* Global values */</span><br><span class="line">tab-size: inherit;</span><br><span class="line">tab-size: initial;</span><br><span class="line">tab-size: unset;</span><br></pre></td></tr></table></figure>
+<p><a href="https://codepen.io/lord2416/pen/rrGKKq" target="_blank" rel="noopener">tab-size代码示例</a></p>
+<h2 id="四、word-break"><a href="#四、word-break" class="headerlink" title="四、word-break"></a>四、word-break</h2><p><strong>word-break</strong>定义元素内容文本的字间与字符间的换行行为</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">初始值              normal</span><br><span class="line">适用元素            all elements</span><br><span class="line">是否是继承属性      yes</span><br><span class="line">适用媒体            visual</span><br><span class="line">计算值	            as specified</span><br><span class="line">Animation type	    discrete</span><br><span class="line">正规顺序            the unique non-ambiguous order defined by the formal grammar</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">word-break: normal </span><br><span class="line">word-break: break-all </span><br><span class="line">word-break: keep-all</span><br><span class="line"></span><br><span class="line">/* Global values */</span><br><span class="line">word-break: inherit;</span><br><span class="line">word-break: initial;</span><br><span class="line">word-break: unset;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>normal</strong><br>使用默认的断行规则。</li>
+<li><strong>break-all</strong><br>对于non-CJK (CJK 指中文/日文/韩文) 文本，可在任意字符间断行。</li>
+<li><strong>keep-all</strong><br>CJK 文本不断行。 Non-CJK 文本表现同 normal。</li>
+<li><strong>break-word</strong><br>与break-all相同，不同的地方在于它要求一个没有断行破发点的词必须保持为一个整体单位。这与word-wrap的break-word值效果相同</li>
+</ul>
+<p><a href="https://codepen.io/lord2416/pen/gjGjKv" target="_blank" rel="noopener">word-break代码示例</a></p>
+<h2 id="五、word-wrap-overflow-wrap"><a href="#五、word-wrap-overflow-wrap" class="headerlink" title="五、word-wrap/overflow-wrap"></a>五、word-wrap/overflow-wrap</h2><blockquote>
+<p>注：word-wrap 属性原本属于微软的一个私有属性，在 CSS3 现在的文本规范草案中已经被重名为 overflow-wrap 。 word-wrap 现在被当作 overflow-wrap 的 “别名”。 稳定的谷歌 Chrome 和 Opera 浏览器版本支持这种新语法。</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">初始值              normal</span><br><span class="line">适用元素            all elements</span><br><span class="line">是否是继承属性      yes</span><br><span class="line">适用媒体            visual</span><br><span class="line">计算值              as specified</span><br><span class="line">Animation type      discrete</span><br><span class="line">正规顺序            the unique non-ambiguous order defined by the formal grammar</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">/* Keyword values */</span><br><span class="line">overflow-wrap: normal;</span><br><span class="line">overflow-wrap: break-word;</span><br><span class="line"></span><br><span class="line">/* Global values */</span><br><span class="line">overflow-wrap: inherit;</span><br><span class="line">overflow-wrap: initial;</span><br><span class="line">overflow-wrap: unset;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>normal</strong><br>表示在正常的单词结束处换行。</li>
+<li><strong>break-word</strong><br>表示如果行内没有多余的地方容纳该单词到结尾，则那些正常的不能被被分割的单词会被强制分割换行。</li>
+</ul>
+<p><a href="https://codepen.io/lord2416/pen/WKZgvB" target="_blank" rel="noopener">word-wrap/overflow-wrap代码示例</a></p>
+<h2 id="六、text-align"><a href="#六、text-align" class="headerlink" title="六、text-align"></a>六、text-align</h2><p><strong>text-align</strong> CSS属性定义行内内容（例如文字）如何相对它的块父元素对齐。text-align 并不控制块元素自己的对齐，只控制它的行内内容的对齐。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">初始值              start, or a nameless value that acts as left if direction is ltr, right if direction is rtl if start is not supported by the browser.</span><br><span class="line">适用元素            block containers</span><br><span class="line">是否是继承属性	    yes</span><br><span class="line">适用媒体            visual</span><br><span class="line">计算值	            as specified, except for the match-parent value which is calculated against its parent&apos;s direction value and results in a computed value of either left or right</span><br><span class="line">Animation type	    discrete</span><br><span class="line">正规顺序	        order of appearance in the formal grammar of the values</span><br></pre></td></tr></table></figure>
+<h3 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">/* Keyword values */</span><br><span class="line">text-align: left;</span><br><span class="line">text-align: right;</span><br><span class="line">text-align: center;</span><br><span class="line">text-align: justify;</span><br><span class="line">text-align: justify-all;</span><br><span class="line">text-align: start;</span><br><span class="line">text-align: end;</span><br><span class="line">text-align: match-parent;</span><br><span class="line"></span><br><span class="line">/* Character-based alignment in a table column */</span><br><span class="line">text-align: &quot;.&quot;;</span><br><span class="line">text-align: &quot;.&quot; center;</span><br><span class="line"></span><br><span class="line">/* Block alignment values (Non-standard syntax) */</span><br><span class="line">text-align: -moz-center;</span><br><span class="line">text-align: -webkit-center;</span><br><span class="line"></span><br><span class="line">/* Global values */</span><br><span class="line">text-align: inherit;</span><br><span class="line">text-align: initial;</span><br><span class="line">text-align: unset;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>start</strong><br>如果内容方向是左至右，则等于left，反之则为right。</li>
+<li><strong>end</strong><br>如果内容方向是左至右，则等于right，反之则为left。</li>
+<li><strong>left</strong><br>行内内容向左侧边对齐。</li>
+<li><strong>right</strong><br>行内内容向右侧边对齐。</li>
+<li><strong>center</strong><br>行内内容居中。</li>
+<li>&lt;<strong>string</strong>&gt;<br>第一个出现的该（单字符）字符串被用来对齐。跟随的关键字定义对齐的方向。例如，可用于让数字值根据小数点对齐。</li>
+<li><strong>justify</strong><br>文字向两侧对齐，对最后一行无效。</li>
+<li><strong>justify-all</strong><br>和justify一致，但是强制使最后一行两端对齐。</li>
+<li><strong>match-parent</strong><br>和inherit类似，区别在于start和end的值根据父元素的direction确定，并被替换为恰当的left或right。</li>
+</ul>
+<p><a href="https://codepen.io/lord2416/pen/ZjXMxL?editors=1111" target="_blank" rel="noopener">text-align示例</a></p>
+<h2 id="七、text-align-last"><a href="#七、text-align-last" class="headerlink" title="七、text-align-last"></a>七、text-align-last</h2><p><strong>text-align-last</strong> 描述的是一段文本中最后一行在被强制换行之前的对齐规则。</p>
+<p><strong>注意</strong>：<br>IE浏览器下，如果text-align-last要生效，必须先定义text-align为justify；</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">初始值              auto</span><br><span class="line">适用元素            block containers</span><br><span class="line">是否是继承属性      yes</span><br><span class="line">适用媒体            visual</span><br><span class="line">计算值              as specified</span><br><span class="line">Animation type      discrete</span><br><span class="line">正规顺序            the unique non-ambiguous order defined by the formal grammar</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/* Keyword values */</span><br><span class="line">text-align-last: auto;</span><br><span class="line">text-align-last: start;</span><br><span class="line">text-align-last: end;</span><br><span class="line">text-align-last: left;</span><br><span class="line">text-align-last: right;</span><br><span class="line">text-align-last: center;</span><br><span class="line">text-align-last: justify;</span><br><span class="line"></span><br><span class="line">/* Global values */</span><br><span class="line">text-align-last: inherit;</span><br><span class="line">text-align-last: initial;</span><br><span class="line">text-align-last: unset;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>auto</strong><br>每一行的对齐规则由 text-align 的值来确定，当 text-align 的值是 justify，text-align-last 的表现和设置了 start 的表现是一样的，即如果文本的展示方向是从左到右，则最后一行左侧对齐与内容盒子。<br>经测试，当 text-align 的值为 right，并且 text-align-last 设置为 auto 时，文本最后一行的对齐方式相当于 text-align-last 被设置为 right 时的效果。即 text-align-last 设置为 auto 后的表现跟 text-align 的设置有关。</li>
+<li><strong>start</strong><br>与 direction 的设置有关。<br>如果文本展示方向是从左到右，起点在左侧，则是左对齐；<br>如果文本展示方向是从右到左，起点在右侧，则是右对齐。<br>如果没有设置 direction ，则按照浏览器文本的默认显示方向来确定。</li>
+<li><strong>end</strong><br>与 direction 的设置有关。<br>如果文本展示方向是从左到右，末尾在右侧，则是右对齐；<br>如果文本展示方向是从右到左，末尾在左侧，则是左对齐。<br>如果没有设置 direction ，则按照浏览器文本的默认显示方向来确定。</li>
+<li><strong>left</strong><br>最后一行文字与内容盒子的左侧对齐</li>
+<li><strong>right</strong><br>最后一行文字与内容盒子的右侧对齐</li>
+<li><strong>center</strong><br>最后一行文字与内容盒子居中对齐</li>
+<li><strong>justify</strong><br>最后一行文字的开头语内容盒子的左侧对齐，末尾与右侧对齐。</li>
+</ul>
+<p><a href="https://codepen.io/lord2416/pen/ejGPoQ?editors=1111" target="_blank" rel="noopener">text-align-last示例</a></p>
+<h2 id="八、text-justify"><a href="#八、text-justify" class="headerlink" title="八、text-justify"></a>八、text-justify</h2><p><strong>text-justify</strong>定义的是当文本的 text-align 属性被设置为 :justify 时的齐行方法。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">初始值          auto</span><br><span class="line">适用元素        inline-level and table-cell elements</span><br><span class="line">是否是继承属性  yes</span><br><span class="line">适用媒体        visual</span><br><span class="line">计算值          as specified</span><br><span class="line">Animation type	discrete</span><br><span class="line">正规顺序        the unique non-ambiguous order defined by the formal grammar</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>auto：</strong><br>允许浏览器用户代理确定使用的两端对齐法则。</li>
+<li><strong>none：</strong><br>禁止两端对齐。</li>
+<li><strong>inter-word：</strong><br>通过增加字之间的空格对齐文本。该行为是对齐所有文本行最快的方法，它的两端对齐行为对段落的最后一行无效。</li>
+<li><strong>inter-ideograph：</strong><br>为表意字文本提供完全两端对齐，增加或减少表意字和词间的空格。</li>
+<li><strong>inter-cluster</strong>：<br>调整文本无词间空格的行。这种模式的调整是用于优化亚洲语言文档的</li>
+<li><strong>distribute：</strong><br>通过增加或减少字或字母之间的空格对齐文本，适用于东亚文档，尤其是泰国。</li>
+<li><strong>kashida：</strong><br>通过拉长选定点的字符调整文本。这种调整模式是特别为阿拉伯脚本语言提供的。需要IE5.5+支持</li>
+<li><strong>inter-character</strong><br>通过在文本中的字符之间添加空间来实现行对齐（这将会改变 letter-spacing 的值），比如日语就是最适合使用这个属性的语言。</li>
+</ul>
+<p><a href="https://codepen.io/lord2416/pen/ZjXmeZ?editors=1111" target="_blank" rel="noopener">text-justify示例</a></p>
+<h2 id="九、word-spacing"><a href="#九、word-spacing" class="headerlink" title="九、word-spacing"></a>九、word-spacing</h2><p><strong>word-spacing</strong>属性用于声明标签和单词直接的间距行为。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">初始值              normal</span><br><span class="line">适用元素            all elements. It also applies to ::first-letter and ::first-line.</span><br><span class="line">是否是继承属性      yes</span><br><span class="line">Percentages         refer to the width of the affected glyph</span><br><span class="line">适用媒体            visual</span><br><span class="line">计算值              an optimum, minimum, and maximum value, each consisting of either an absolute length, a percentage, or the keyword normal</span><br><span class="line">Animation type      a length</span><br><span class="line">正规顺序            the unique non-ambiguous order defined by the formal grammar</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/* Keyword value */</span><br><span class="line">word-spacing: normal;</span><br><span class="line"></span><br><span class="line">/* &lt;length&gt; values */</span><br><span class="line">word-spacing: 3px;</span><br><span class="line">word-spacing: 0.3em;</span><br><span class="line"></span><br><span class="line">/* &lt;percentage&gt; values */</span><br><span class="line">word-spacing: 50%;</span><br><span class="line">word-spacing: 200%;</span><br><span class="line"></span><br><span class="line">/* Global values */</span><br><span class="line">word-spacing: inherit;</span><br><span class="line">word-spacing: initial;</span><br><span class="line">word-spacing: unset;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>normal</strong>初始值，正常的单词间距，由当前字体和/或浏览器定义。</li>
+<li>&lt;<strong>length</strong>&gt;通过指定具体的额外间距来增加字体的单词间距。</li>
+<li>&lt;<strong>percentage</strong>&gt;通过指定受影响字符的宽度的百分比的方式来增加的间距。</li>
+</ul>
+<p><a href="https://codepen.io/lord2416/pen/zLprmN" target="_blank" rel="noopener">word-spacing示例</a></p>
+<h2 id="十、letter-spacing"><a href="#十、letter-spacing" class="headerlink" title="十、letter-spacing"></a>十、letter-spacing</h2><p><strong>letter-spacing</strong>属性明确了文字字母的间距行为。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">初始值              normal</span><br><span class="line">适用元素            all elements. It also applies to ::first-letter and ::first-line.</span><br><span class="line">是否是继承属性      yes</span><br><span class="line">适用媒体            visual</span><br><span class="line">计算值              an optimum value consisting of either an absolute length or the keyword normal</span><br><span class="line">Animation type      a length</span><br><span class="line">正规顺序            the unique non-ambiguous order defined by the formal grammar</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">letter-spacing: normal;</span><br><span class="line"></span><br><span class="line">letter-spacing: 0.3em;</span><br><span class="line">letter-spacing: 3px;</span><br><span class="line">letter-spacing: .3px;</span><br><span class="line"></span><br><span class="line">letter-spacing: inherit;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>normal</strong>(默认值) 此间距是按照当前字体的正常间距确定的。 用户代理根据此属性来确定文字的默认对齐方式。等同于间距 0。</li>
+<li>&lt;<strong>length</strong>&gt;指定文字间的间距以替代默认间距。可以是负值，但有可能会出现 implementation 限制。用户代理不会在此基础上进一步增加或缩减间距来对齐文字。</li>
+</ul>
+<p><a href="https://codepen.io/lord2416/pen/XBVwYz" target="_blank" rel="noopener">letter-spacing示例</a> </p>
+<p><strong>合理使用</strong>：<br>一个很大的正或负的letter-spacing值会将应用这个样式的单词边为不可读的。给文本letter-spacing属性应用了一个很大的正值，字母之间的距离会很远，以至于文本中的单词将显示为一系列单独的，无有任何关联的字母。给文本letter-spacing属性应用了一个很大的负值，字母将会互相重叠到一个点，在这个点上单词可能无法识别了。</p>
+<p>一个最佳的易辨认的字母间距（letter-spacing）必须根据具体情况来确定，因为不同的字体系列具有不同的字符宽度。没有任何一个值可以确保所有字体系列自动保持它们的可读性。</p>
+<h2 id="十一、text-indent"><a href="#十一、text-indent" class="headerlink" title="十一、text-indent"></a>十一、text-indent</h2><p><strong>text-indent</strong> 属性 规定了 一个元素 首行 文本内容之前应该有多少水平空格。水平空格是块级包含元素的内容盒子的左边(对于从右向左布局来说是右边).</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">初始值                  0</span><br><span class="line">适用元素                block containers</span><br><span class="line">是否是继承属性          yes</span><br><span class="line">Percentages             refer to the width of the containing block</span><br><span class="line">适用媒体                visual</span><br><span class="line">计算值                  the percentage as specified or the absolute length, plus any keywords as specified</span><br><span class="line">Animation type          a length, percentage or calc();</span><br><span class="line">正规顺序                The length or percentage before the keywords, if both are present. If several keywords are present, they appear in the same order as their appearance in the formal grammar.</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/* &lt;length&gt; values */</span><br><span class="line">text-indent: 3mm;</span><br><span class="line">text-indent: 40px;</span><br><span class="line"></span><br><span class="line">/* &lt;percentage&gt; value</span><br><span class="line">   relative to the containing block width */</span><br><span class="line">text-indent: 15%;</span><br><span class="line"></span><br><span class="line">/* Keyword values */</span><br><span class="line">text-indent: 5em each-line;</span><br><span class="line">text-indent: 5em hanging;</span><br><span class="line">text-indent: 5em hanging each-line;</span><br><span class="line"></span><br><span class="line">/* Global values */</span><br><span class="line">text-indent: inherit;</span><br><span class="line">text-indent: initial;</span><br><span class="line">text-indent: unset;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>&lt;<strong>length</strong>&gt;使用固定的<length>值来指定文本的缩进。允许使用负值。</length></li>
+<li>&lt;<strong>percentage</strong>&gt;使用包含块宽度的百分比作为缩进。</li>
+<li><strong>each-line</strong>（css3）文本缩进会影响第一行，以及使用<br>强制断行后的第一行。</li>
+<li><strong>hanging</strong>（css3）该值会对所有的行进行反转缩进：除了第一行之外的所有的行都会被缩进，看起来就像第一行设置了一个负的缩进值。</li>
+</ul>
+<p><strong>注：</strong><br><strong>each-line</strong>和<strong>hanging</strong>均为实验性功能</p>
+<ul>
+<li>chrome开启: chrome://flags/#enable-experimental-web-platform-features</li>
+</ul>
+<p><a href="https://codepen.io/lord2416/pen/LBeKPq" target="_blank" rel="noopener">text-indent代码示例</a></p>
+<h2 id="十二、vertical-align"><a href="#十二、vertical-align" class="headerlink" title="十二、vertical-align"></a>十二、vertical-align</h2><p><strong>vertical-align</strong>属性用来指定行内元素（inline）或表格单元格（table-cell）元素的垂直对齐方式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">初始值              baseline</span><br><span class="line">适用元素            inline-level and table-cell elements. It also applies to ::first-letter and ::first-line.</span><br><span class="line">是否是继承属性      否</span><br><span class="line">Percentages         refer to the line-height of the element itself</span><br><span class="line">适用媒体            visual</span><br><span class="line">计算值              for percentage and length values, the absolute length, otherwise the keyword as specified</span><br><span class="line">Animation type      a length</span><br><span class="line">正规顺序            the unique non-ambiguous order defined by the formal grammar</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">/* keyword values */</span><br><span class="line">vertical-align: baseline;</span><br><span class="line">vertical-align: sub;</span><br><span class="line">vertical-align: super;</span><br><span class="line">vertical-align: text-top;</span><br><span class="line">vertical-align: text-bottom;</span><br><span class="line">vertical-align: middle;</span><br><span class="line">vertical-align: top;</span><br><span class="line">vertical-align: bottom;</span><br><span class="line"></span><br><span class="line">/* &lt;length&gt; values */</span><br><span class="line">vertical-align: 10em;</span><br><span class="line">vertical-align: 4px;</span><br><span class="line"></span><br><span class="line">/* &lt;percentage&gt; values */</span><br><span class="line">vertical-align: 20%;</span><br><span class="line"></span><br><span class="line">/* Global values */</span><br><span class="line">vertical-align: inherit;</span><br><span class="line">vertical-align: initial;</span><br><span class="line">vertical-align: unset;</span><br></pre></td></tr></table></figure>
+<h4 id="取值-对于行内-inline-元素"><a href="#取值-对于行内-inline-元素" class="headerlink" title="取值 (对于行内(inline)元素)"></a>取值 (对于行内(inline)元素)</h4><p>下列值只对父级行内元素或者一个父级块容器元素的<a href="http://www.ayqy.net/doc/css2-1/visudet.html#strut" target="_blank" rel="noopener">strut</a>有效</p>
+<p>在下面的定义中，对于行内非替换元素，用于对齐的盒是那个高度为’line-height’（包括该盒的字形和两边的半行距，见上文）的盒。对于其它所有元素，用于对齐的盒都是外边距框（margin box）</p>
+<ul>
+<li><strong>baseline</strong>默认。把盒的基线与父级盒的基线对齐。如果该盒没有基线，就把下外边距边界和父级的基线对齐。</li>
+<li><strong>sub</strong>把该盒的基线降低到合适的位置作为父级盒的下标（该值不影响该元素文本的字体大小）</li>
+<li><strong>super</strong>把该盒的基线提升到合适的位置作为父级盒的上标（该值不影响该元素文本的字体大小）</li>
+<li><strong>text-top</strong>把该盒的顶端和父级的内容区（content area）的顶端对齐</li>
+<li><strong>text-bottom</strong>把该盒的底端和父级的内容区的底端对齐</li>
+<li><strong>middle</strong>把该盒的垂直中点与父级盒的基线加上父级的半x-height对齐</li>
+<li>&lt;<strong>length</strong>&gt;把该盒提升（正值）或者降低（负值）这个距离。值’0cm’表示与“基线”相同</li>
+<li>&lt;<strong>percentage</strong>&gt;把该盒提升（正值）或者降低（负值）这个距离（’line-height’值的百分比）。值’0%’表示与“基线”相同</li>
+</ul>
+<p>以下两个值是相对于整行来说的：</p>
+<ul>
+<li><strong>top</strong>元素及其后代的顶端与line-box正行的顶端对齐。</li>
+<li><strong>bottom</strong>元素及其后代的底端与line-box整行的底端对齐。</li>
+</ul>
+<p>如果元素没有基线baseline，则以它的外边距的下边缘为基线。</p>
+<h4 id="取值-对于table-cell元素"><a href="#取值-对于table-cell元素" class="headerlink" title="取值 (对于table-cell元素)"></a>取值 (对于table-cell元素)</h4><ul>
+<li><strong>baseline</strong> (and <strong>sub</strong>, <strong>super</strong>, <strong>text-top</strong>, <strong>text-bottom</strong>, &lt;<strong>length</strong>&gt;, and &lt;<strong>percentage</strong>&gt;)与同行单元格的基线对齐。</li>
+<li><strong>top</strong>单元格的内边距的上边缘与行的顶端对齐。</li>
+<li><strong>middle</strong>单元格垂直居中。</li>
+<li><strong>bottom</strong>单元格的内边距的下边缘与行的底端对齐。</li>
+</ul>
+<p>可以取负值。</p>
+<p><a href="https://codepen.io/lord2416/pen/oMEjdN" target="_blank" rel="noopener">vertical-align代码示例</a></p>
+<h2 id="十四、line-height"><a href="#十四、line-height" class="headerlink" title="十四、line-height"></a>十四、line-height</h2><p><strong>line-height</strong> 属性用于设置多行元素的空间量，比如文本。对于块级元素，它指定元素行盒（line boxes）的最小高度。对于非替代的inline元素，它用于计算行盒（line box）的高度。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Value:  	    normal | &lt;number&gt; | &lt;length&gt; | &lt;percentage&gt; | inherit</span><br><span class="line">初始值:  	    normal</span><br><span class="line">适用元素:  	    所有元素</span><br><span class="line">是否可继承:  	yes</span><br><span class="line">Percentages:  	参考元素自身的字体大小</span><br><span class="line">Media:  	    visual</span><br><span class="line">Computed value: 对于&lt;length&gt;和&lt;percentage&gt;是绝对的值，否则与指定值相同</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">/* Keyword value */</span><br><span class="line">line-height: normal;</span><br><span class="line"></span><br><span class="line">/* Unitless values: use this number multiplied</span><br><span class="line">by the element&apos;s font size */</span><br><span class="line">line-height: 3.5;</span><br><span class="line"></span><br><span class="line">/* &lt;length&gt; values */</span><br><span class="line">line-height: 3em;</span><br><span class="line"></span><br><span class="line">/* &lt;percentage&gt; values */</span><br><span class="line">line-height: 34%;</span><br><span class="line"></span><br><span class="line">/* Global values */</span><br><span class="line">line-height: inherit;</span><br><span class="line">line-height: initial;</span><br><span class="line">line-height: unset;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>normal</strong><br>告诉用户代理根据该元素的字体把应用值设置为一个“合理的”值。该值与<number>的含义相同。我们推荐介于1.0到1.2的“常规”应用值。计算值为’normal’</number></li>
+<li>&lt;<strong>length</strong>&gt;<br>指定的长度用来计算行框的高度。负值是非法的</li>
+<li>&lt;<strong>number</strong>&gt;<br>该属性的应用值为这个数字乘以该元素的字体大小。负值是非法的。计算值与指定值相同</li>
+<li>&lt;<strong>percentage</strong>&gt;<br>该属性的计算值为这个百分比乘以该元素的字体大小的计算值。负值是非法的</li>
+</ul>
+<p><a href="https://codepen.io/lord2416/pen/RBMaMe" target="_blank" rel="noopener">line-height代码示例</a></p>
+<h2 id="十五、text-size-justify"><a href="#十五、text-size-justify" class="headerlink" title="十五、text-size-justify"></a>十五、text-size-justify</h2><p><strong>text-size-adjust</strong> 属性 允许我们控制将文本溢出算法应用到一些手机设备上。这个属性还没有写进标准，使用时必须加上前缀：-moz-text-size-adjust，-webkit-text-size-adjust,，和 -ms-text-size-adjust。</p>
+<p>许多网页还没有用手机开发，智能手机浏览器和桌面浏览器渲染网页时在一些地方有不同。他们不是以设备屏幕宽度布局网页，而是用比屏幕宽一些的视窗去布局网页，通常是800到1000像素。为了将视窗上的布局映射到原始设备屏幕上，手机浏览器要么只渲染整个页面的一部分，要么将视窗缩放至原始屏幕大小。</p>
+<p>因为缩放适配小屏幕而导致文字会变得很小，许多手机浏览器会使用文本溢出算法让文本变大而更易读。当一个包含文本的元素宽度用了100%，他的文本大小会增加直到达到一个易读的大小，但是不会修改布局。</p>
+<p>text-size-adjust   这个属性允许开发者去除或者修改这个浏览器默认行为，因为当网页设计已经处理小屏幕的宽度问题时不需要他。</p>
+<blockquote>
+<ul>
+<li>这个属性并不是标准。 你必须为每个你想要应用的浏览器加上属性前缀。</li>
+<li>不同浏览器，这个属性有不同的行为和语法。更多的信息，请查看下面的浏览器兼容性部分。</li>
+<li>这个属性只有在一些智能手机和平板电脑上使用。 桌面浏览器和一些平板电脑浏览器并没有一些溢出算法。</li>
+<li>如果 -webkit-text-size-adjust 显式设置为 none, 老的基于桌面的WebKit和平板电脑浏览器，像 Chrome≤26 或者 Safari≤5, 不会忽略这个属性, 反而会阻止用户在web界面放大或缩小。#</li>
+<li>不是所有的浏览器都支持这个属性使用百分比值(例如 Webkit 和 Trident , 但是 Gecko不支持). 检查下面浏览器兼容的部分查看更多的信息。</li>
+</ul>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">/* 文本不会放大 */</span><br><span class="line">text-size-adjust: none;</span><br><span class="line"></span><br><span class="line">/* 文本可能会被放大 */</span><br><span class="line">text-size-adjust: auto;</span><br><span class="line"></span><br><span class="line">/* 文本固定为原大小的80% */</span><br><span class="line">text-size-adjust: 80%;</span><br><span class="line"></span><br><span class="line">/* 全局的值 */</span><br><span class="line">text-size-adjust: inherit;</span><br><span class="line">text-size-adjust: initial;</span><br><span class="line">text-size-adjust: unset;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>none</strong><br>禁用浏览器的文本溢出算法。在老的基于webkit内核的桌面端浏览器，这将阻止用户将网页放大或缩小。</li>
+<li><strong>auto</strong><br>启用 浏览器的文本溢出算法。该值用于取消先前使用CSS设置的none。</li>
+<li>&lt;<strong>percentage</strong>&gt;<br>启用 浏览器的文本溢出算法，具体用一个百分数来确定文本放大范围。</li>
+</ul>
+<p><a href="https://codepen.io/lord2416/pen/bjvqVo/" target="_blank" rel="noopener">text-size-justify代码示例</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>leonliu</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://onlinerobotfrontend.github.io/Blog/2018/08/16/text/" title="css属性:文本(Text)">https://onlinerobotfrontend.github.io/Blog/2018/08/16/text/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/Blog/tags/css基础/" rel="tag"># css基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Blog/2018/08/09/line-height/" rel="next" title="line-height 爱我你怕了吗">
+                <i class="fa fa-chevron-left"></i> line-height 爱我你怕了吗
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Blog/2018/08/21/colorFont/" rel="prev" title="css属性:颜色(color)与字体(font)">
+                css属性:颜色(color)与字体(font) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNzQ4NC8xNDAxNg=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/Blog/images/avatar.jpeg"
+                alt="OnlineRobotFrontEnd" />
+            
+              <p class="site-author-name" itemprop="name">OnlineRobotFrontEnd</p>
+              <p class="site-description motion-element" itemprop="description">京东数科在线机器人前端团队</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/Blog/archives/">
+                
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/Blog/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/Blog/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#一-text-transform"><span class="nav-number">1.</span> <span class="nav-text">一.text-transform</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#语法"><span class="nav-number">1.0.1.</span> <span class="nav-text">语法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二、white-space"><span class="nav-number">2.</span> <span class="nav-text">二、white-space</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#三、tab-size"><span class="nav-number">3.</span> <span class="nav-text">三、tab-size</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#四、word-break"><span class="nav-number">4.</span> <span class="nav-text">四、word-break</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#五、word-wrap-overflow-wrap"><span class="nav-number">5.</span> <span class="nav-text">五、word-wrap/overflow-wrap</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#六、text-align"><span class="nav-number">6.</span> <span class="nav-text">六、text-align</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#语法-1"><span class="nav-number">6.1.</span> <span class="nav-text">语法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#七、text-align-last"><span class="nav-number">7.</span> <span class="nav-text">七、text-align-last</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#八、text-justify"><span class="nav-number">8.</span> <span class="nav-text">八、text-justify</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#九、word-spacing"><span class="nav-number">9.</span> <span class="nav-text">九、word-spacing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十、letter-spacing"><span class="nav-number">10.</span> <span class="nav-text">十、letter-spacing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十一、text-indent"><span class="nav-number">11.</span> <span class="nav-text">十一、text-indent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十二、vertical-align"><span class="nav-number">12.</span> <span class="nav-text">十二、vertical-align</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#取值-对于行内-inline-元素"><span class="nav-number">12.0.1.</span> <span class="nav-text">取值 (对于行内(inline)元素)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#取值-对于table-cell元素"><span class="nav-number">12.0.2.</span> <span class="nav-text">取值 (对于table-cell元素)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十四、line-height"><span class="nav-number">13.</span> <span class="nav-text">十四、line-height</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十五、text-size-justify"><span class="nav-number">14.</span> <span class="nav-text">十五、text-size-justify</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OnlineRobotFrontEnd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/Blog/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/Blog/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/Blog/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/Blog/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/Blog/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

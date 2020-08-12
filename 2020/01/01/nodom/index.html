@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/Blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/Blog/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon.ico?v=6.3.0">
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/Blog/',
+    scheme: 'Gemini',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="Nodom介绍">
+<meta name="keywords" content="js框架, MVVM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nodom.js前端框架介绍">
+<meta property="og:url" content="https://onlinerobotfrontend.github.io/Blog/2020/01/01/nodom/index.html">
+<meta property="og:site_name" content="OnlineRobotFrontEnd">
+<meta property="og:description" content="Nodom介绍">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://onlinerobotfrontend.github.io/Blog/images/nodom/character.png">
+<meta property="og:updated_time" content="2020-08-05T13:06:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nodom.js前端框架介绍">
+<meta name="twitter:description" content="Nodom介绍">
+<meta name="twitter:image" content="https://onlinerobotfrontend.github.io/Blog/images/nodom/character.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://onlinerobotfrontend.github.io/Blog/2020/01/01/nodom/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>Nodom.js前端框架介绍 | OnlineRobotFrontEnd</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/Blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OnlineRobotFrontEnd</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">技术博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/Blog/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/Blog/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/Blog/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/Blog/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://onlinerobotfrontend.github.io/Blog/Blog/2020/01/01/nodom/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OnlineRobotFrontEnd">
+      <meta itemprop="description" content="京东数科在线机器人前端团队">
+      <meta itemprop="image" content="/Blog/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OnlineRobotFrontEnd">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Nodom.js前端框架介绍
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2020-01-01 00:00:00" itemprop="dateCreated datePublished" datetime="2020-01-01T00:00:00+08:00">2020-01-01</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-08-05 21:06:22" itemprop="dateModified" datetime="2020-08-05T21:06:22+08:00">2020-08-05</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/Blog/categories/js-framework/" itemprop="url" rel="index"><span itemprop="name">js framework</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Nodom介绍"><a href="#Nodom介绍" class="headerlink" title="Nodom介绍"></a>Nodom介绍</h1><a id="more"></a>
+<h2 id="Nodom-js是什么？"><a href="#Nodom-js是什么？" class="headerlink" title="Nodom.js是什么？"></a>Nodom.js是什么？</h2><p>NoDom是一套轻量级的MVVM框架，以模块化为基础，用于构建SPA(Single Page Application)应用，主要服务于WebApp开发。提供基于数据驱动的渲染模式，页面变化只需修改数据即可实现。</p>
+<p>目前Nodom.js兼容ES5，不支持ie浏览器（Edge除外）</p>
+<p>nodom官网：<a href="http://www.nodom.org" target="_blank" rel="noopener">NoDom-数据驱动渲染MVVM框架</a></p>
+<p><img src="/Blog/images/nodom/character.png" alt="特色"></p>
+<h1 id="模块"><a href="#模块" class="headerlink" title="模块"></a>模块</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>模块是Nodom的核心内容，Nodom开发的每个应用都是从模块开始，所有页面由模块组成，一个页面是一个模块，可能嵌套多个子模块。</p>
+<blockquote>
+<p>模块主要包含两个部分：模版和数据</p>
+<ul>
+<li>模版用于基本元素的编写，数据用于对模版的渲染，其中模版分为三种方式引入:元素、模版串、模版文件。</li>
+<li>数据分为两种引入方式:数据对象和数据文件，模版文件和数据文件可以在模块初次使用时动态加载。</li>
+</ul>
+</blockquote>
+<h2 id="用法"><a href="#用法" class="headerlink" title="用法"></a>用法</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 基本用法 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"root"</span>&gt;</span></span><br><span class="line">  我是_&#123; name &#125;_，_&#123;age&#125;_ 岁. <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  是<span class="tag">&lt;<span class="name">span</span> <span class="attr">x-if</span>=<span class="string">"age&gt;10"</span>&gt;</span>成年人<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> <span class="attr">x-else</span>&gt;</span>未成年人<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  DD.createModule(&#123;</span></span><br><span class="line"><span class="undefined">    name: 'module1',</span></span><br><span class="line"><span class="undefined">    el: '.root',</span></span><br><span class="line"><span class="undefined">    data: &#123;</span></span><br><span class="line"><span class="undefined">      age: 10,</span></span><br><span class="line"><span class="undefined">      name: 'nodom',</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 文件加载 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 请注意配置DD.config.appPath属性，路径以相对路径给出，如DD.config.appPath='/yourapp/app/'，创建模块时templateUrl设置为view/view1.html，</span></span><br><span class="line"><span class="comment">调用时，NoDom会对两部分进行合并，从/yourapp/app/view/view1.html加载，请注意路径不要用多余的/。</span></span><br><span class="line"><span class="comment">数据需给定url完整地址，可以是一个http响应，也可以是一个json数据文件。 --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"root"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined"> DD.createModule(&#123;</span></span><br><span class="line"><span class="undefined">  el:'.root',</span></span><br><span class="line"><span class="undefined">  /*请修改dataUrl和templateUrl*/</span></span><br><span class="line"><span class="undefined">  dataUrl:'datapath/dataname.json',</span></span><br><span class="line"><span class="undefined">  templateUrl:'viewpath/viewname.html'</span></span><br><span class="line"><span class="undefined">&#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 模块嵌套 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"root"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  DD.createModule(&#123;</span></span><br><span class="line"><span class="undefined">    el: '.root',</span></span><br><span class="line"><span class="undefined">    /*用template模版串作为模版，模块中都不使用数据*/</span></span><br><span class="line"><span class="xml">    template: '<span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"border:1px solid #999"</span>&gt;</span>这是父模块<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"code31"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"code32"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>',</span></span><br><span class="line"><span class="undefined">    modules: [</span></span><br><span class="line"><span class="undefined">      /*子模块1，也是采用模版串*/</span></span><br><span class="line"><span class="undefined">      &#123;</span></span><br><span class="line"><span class="xml">        template: '<span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"border:2px solid #900;margin:5px 0;"</span>&gt;</span>这是内部的子模块1<span class="tag">&lt;/<span class="name">div</span>&gt;</span>',</span></span><br><span class="line"><span class="undefined">        el: '.code31',</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="undefined">      /*子模块2，也是采用模版串*/</span></span><br><span class="line"><span class="undefined">      &#123;</span></span><br><span class="line"><span class="xml">        template: '<span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">"border:2px solid #009"</span>&gt;</span>这是内部的子模块2<span class="tag">&lt;/<span class="name">div</span>&gt;</span>',</span></span><br><span class="line"><span class="undefined">        el: '.code32'</span></span><br><span class="line"><span class="undefined">      &#125;]</span></span><br><span class="line"><span class="undefined">  &#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 模块通信 --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 每个模块都可以通过NoDom提供消息机制与兄弟模块、父模块和子模块进行通信，主要通过broadcast方法(广播消息)和send方法(定向发送)、onReceive钩子处理收到的消息。 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"root"</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  DD.createModule(&#123;</span></span><br><span class="line"><span class="undefined">    /*给模块设置名字，方便在收到消息时针对不同模块做不同操作*/</span></span><br><span class="line"><span class="undefined">    name: 'module1',</span></span><br><span class="line"><span class="undefined">    el: '.mod1',</span></span><br><span class="line"><span class="undefined">    templateUrl: 'view/tutorial/module/communication.html',</span></span><br><span class="line"><span class="undefined">    data: &#123; smsg: '', rmsg: '' &#125;,</span></span><br><span class="line"><span class="undefined">    /*消息接收钩子*/</span></span><br><span class="line"><span class="undefined">    onReceive: function (module, data) &#123;</span></span><br><span class="line"><span class="undefined">      this.data.rmsg = '来自' + module + '的消息：' + data.smsg;</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    methods: &#123;</span></span><br><span class="line"><span class="undefined">      /*发送消息方法，由send按钮的e-click指定*/</span></span><br><span class="line"><span class="undefined">      sendMsg: function () &#123;</span></span><br><span class="line"><span class="undefined">        /*broadcast为模块方法，用来向外部发送消息*/</span></span><br><span class="line"><span class="undefined">        this.broadcast(this.data);</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    modules: [&#123;</span></span><br><span class="line"><span class="undefined">      name: 'module2',</span></span><br><span class="line"><span class="undefined">      el: '.code41',</span></span><br><span class="line"><span class="undefined">      data: &#123; smsg: '', rmsg: '' &#125;,</span></span><br><span class="line"><span class="undefined">      onReceive: function (module, data) &#123;</span></span><br><span class="line"><span class="undefined">        this.data.rmsg = '来自' + module + '的消息：' + data.smsg;</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="undefined">      methods: &#123;</span></span><br><span class="line"><span class="undefined">        sendMsg: function () &#123;</span></span><br><span class="line"><span class="undefined">          this.broadcast(this.data);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;, &#123;</span></span><br><span class="line"><span class="undefined">      name: 'module3',</span></span><br><span class="line"><span class="undefined">      el: '.code42',</span></span><br><span class="line"><span class="undefined">      data: &#123; smsg: '', rmsg: '' &#125;,</span></span><br><span class="line"><span class="undefined">      onReceive: function (module, data) &#123;</span></span><br><span class="line"><span class="undefined">        this.data.rmsg = '来自' + module + '的消息：' + data.smsg;</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="undefined">      methods: &#123;</span></span><br><span class="line"><span class="undefined">        sendMsg: function () &#123;</span></span><br><span class="line"><span class="undefined">          this.broadcast(this.data);</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;]</span></span><br><span class="line"><span class="undefined">  &#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="模型"><a href="#模型" class="headerlink" title="模型"></a>模型</h1><p>模型是Nodom的提供者，用于管理整个模块的数据<br></p>
+<blockquote>
+<p>注意：<br>模型数据对象必须为json object，如果为数组，数组元素也必须是json object。<br>view只能使用x-model指令指定的模型数据(如果没有x-model指令，则向上取第一个父view带x-model指令指定的模型数据)，不能跨x-model指令取数据。</p>
+</blockquote>
+<h1 id="表达式"><a href="#表达式" class="headerlink" title="表达式"></a>表达式</h1><p>Nodom中，双大括号 _{}_ 里面的内容会被解析成表达式。表达式项主要用于获取数据项，计算并渲染到DOM中。表达式支持“(”、“)”、 “*”、 “/”、 “+” 、 “-”、 “&gt;”、 “&lt;”、 “&gt;=”、 “&lt;=”、 “==”、 “===”、 “&amp;&amp;”、 “||” 算数逻辑运算和过滤器运算符“|”。其中过滤器运算符“|”运算法优先级仅低于括号()运算法。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">'result code1'</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>(3+4)/5的结果是:_&#123;(3 + 4) / 5&#125;_<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>商品名:_&#123; name &#125;_<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>商品价格：_&#123; price &#125;_<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>商品折扣价:_&#123; price*discount&#125;_<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--引入过滤器，把计算结果转换为货币--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>商品折扣价(精确到分):_&#123;(price * discount) | currency:¥&#125;_<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span>生产日期是:_&#123; genDate| date:'yyyy-MM-dd'&#125;_<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  &lt;div&gt;是否是低价商品:_&#123; price&lt;30&#125;_&lt;/div&gt;</span><br><span class="line">  &lt;div&gt;是否是低价商品并且还有折扣:_&#123; price&lt;30 &amp;&amp; discount !== undefined &#125;_&lt;/div&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  DD.createModule(&#123;</span></span><br><span class="line"><span class="undefined">    el: '.code1',</span></span><br><span class="line"><span class="undefined">    data: &#123;</span></span><br><span class="line"><span class="undefined">      price: 20,</span></span><br><span class="line"><span class="undefined">      discount: 0.855,   /*折扣*/</span></span><br><span class="line"><span class="undefined">      name: '测试商品',</span></span><br><span class="line"><span class="undefined">      genDate: (new Date()).getTime()   	/*生产日期*/</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="过滤器"><a href="#过滤器" class="headerlink" title="过滤器"></a>过滤器</h1><p>过滤器以“|”来分隔待过滤内容和过滤器方法，如content|filtermethod，其中date、currency、number、tolowercase、touppercase主要用于表达式过滤，orderBy过滤器主要用于配合数组排序，select用于数组元素过滤。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"root"</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- date --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"time"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--注意日期格式两边的单引号--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>当前日期是:_&#123;date1|date:'yyyy/MM/dd'&#125;_<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>当前时间是:_&#123;date1|date:'HH:mm:ss'&#125;_<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>当前日期和时间是:_&#123;date1|date:'yyyy-MM-dd HH:mm:ss'&#125;_<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- currency --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"currency"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--默认货币为¥--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>商品价格是:_&#123;price|currency&#125;_<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>商品价格是:_&#123;price|currency:$&#125;_<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- number --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"number"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>保留3位小数:_&#123;progress|number:3&#125;_<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>保留0位小数:_&#123;progress|number:0&#125;_<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- tolowercase／touppercase --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"lower_uppercase"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>转换为小写字母:_&#123;name|tolowercase&#125;_<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span>转换为大写字母:_&#123;name|touppercase&#125;_<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- orderBy --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">'orderBy'</span>&gt;</span></span><br><span class="line">    升序排序</span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">x-repeat</span>=<span class="string">'rows|orderBy:name'</span>&gt;</span>_&#123;name&#125;_'s address is _&#123;addr&#125;_<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    降序排序</span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">x-repeat</span>=<span class="string">'rows|orderBy:name:desc'</span>&gt;</span>_&#123;name&#125;_'s address is _&#123;addr&#125;_<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- select --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">'select'</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--select结合repeat指令使用--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">'imp'</span>&gt;</span>odd用法<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">x-repeat</span>=<span class="string">'rows|select:odd'</span>&gt;</span>_&#123;name&#125;_'s address is _&#123;addr&#125;_<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    even用法</span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">x-repeat</span>=<span class="string">'rows|select:even'</span>&gt;</span>_&#123;name&#125;_'s address is _&#123;addr&#125;_<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    range用法</span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">x-repeat</span>=<span class="string">'rows|select:range:1:3'</span>&gt;</span>_&#123;name&#125;_'s address is _&#123;addr&#125;_<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    index用法</span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">x-repeat</span>=<span class="string">'rows|select:index:1:3'</span>&gt;</span>_&#123;name&#125;_'s address is _&#123;addr&#125;_<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    v用法</span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">x-repeat</span>=<span class="string">"rows|select:yang"</span>&gt;</span>_&#123;name&#125;_'s address is _&#123;addr&#125;_<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    &#123;prop:v&#125;用法，这里的参数必须为正确的json串，比如yang是字符串，需在两边添加引号</span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">x-repeat</span>=<span class="string">"rows|select:&#123;addr:'yang'&#125;"</span>&gt;</span>_&#123;name&#125;_'s address is _&#123;addr&#125;_<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">    func用法</span><br><span class="line">    <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">li</span> <span class="attr">x-repeat</span>=<span class="string">'rows|select:func:selectArr'</span>&gt;</span>_&#123;name&#125;_'s address is _&#123;addr&#125;_<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  DD.createModule(&#123;</span></span><br><span class="line"><span class="undefined">    el: '.root',</span></span><br><span class="line"><span class="undefined">    data: &#123;</span></span><br><span class="line"><span class="undefined">      date1: (new Date()).getTime(),</span></span><br><span class="line"><span class="undefined">      price: 15.323,</span></span><br><span class="line"><span class="undefined">      progress: 35.89992,</span></span><br><span class="line"><span class="undefined">      name: 'Hello world!',</span></span><br><span class="line"><span class="undefined">      rows: [</span></span><br><span class="line"><span class="undefined">        &#123; name: 'yang', addr: 'chengdu' &#125;,</span></span><br><span class="line"><span class="undefined">        &#123; name: 'zhangs', addr: 'mianyang' &#125;,</span></span><br><span class="line"><span class="undefined">        &#123; name: 'NoDom', addr: 'luoyang' &#125;,</span></span><br><span class="line"><span class="undefined">        &#123; name: 'hello', addr: 'beijing' &#125;,</span></span><br><span class="line"><span class="undefined">      ],</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    methods: &#123;</span></span><br><span class="line"><span class="undefined">      selectArr: function (arr) &#123;</span></span><br><span class="line"><span class="undefined">        var a = [];</span></span><br><span class="line"><span class="undefined">        //过滤出name为yang的数组元素</span></span><br><span class="line"><span class="undefined">        arr.forEach(function (item) &#123;</span></span><br><span class="line"><span class="undefined">          if (item.name === 'yang') &#123;</span></span><br><span class="line"><span class="undefined">            a.push(item);</span></span><br><span class="line"><span class="undefined">          &#125;</span></span><br><span class="line"><span class="undefined">        &#125;);</span></span><br><span class="line"><span class="undefined">        return a;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="指令"><a href="#指令" class="headerlink" title="指令"></a>指令</h1><p>指令主要包括：model, repeat, if/else, class, show, field(双向绑定), validity(校验), router(路由), 用法是 x-指令名称，如x-model。</p>
+<h2 id="model指令"><a href="#model指令" class="headerlink" title="model指令"></a>model指令</h2><p>model指令用于给view绑定数据，数据采用层级关系，如:需要使用数据项data1.data2.data3，可以直接使用data1.data2.data3，也可以分2层设置分别设置x-model=’data1’，x-model=’data2’，然后使用数据项data3。</p>
+<p>例子: <a href="http://www.nodom.org/route/tutorial/dmodel" target="_blank" rel="noopener">model指令</a></p>
+<h2 id="repeat指令"><a href="#repeat指令" class="headerlink" title="repeat指令"></a>repeat指令</h2><p>repeat指令用于给按照绑定的数组数据重复生成多个相同的view，每个view由指定数组索引对应的数据对象或数据进行渲染。使用方式为x-repeat=’items|filter’,其中items为json数组，filter为过滤器。</p>
+<p>例子：<a href="http://www.nodom.org/route/tutorial/drepeat" target="_blank" rel="noopener">repeat指令</a></p>
+<h2 id="if-else指令"><a href="#if-else指令" class="headerlink" title="if/else指令"></a>if/else指令</h2><p>if/else指令用于进行条件渲染，如果if指令对应条件为真，则渲染该节点下的子节点，如果设置else指令，则条件为假时，渲染else指令对应节点的子节点。其中nodom不支持if…elseif,需要在else中嵌套</p>
+<p>例子：<a href="http://www.nodom.org/route/tutorial/dif" target="_blank" rel="noopener">if/else指令</a></p>
+<h2 id="class指令"><a href="#class指令" class="headerlink" title="class指令"></a>class指令</h2><p>class指令用于按条件给view添加或移除css class。使用方式为x-class=’{class1:condition1,class2:condition2,…}’，当满足condition1时，添加class1,反之则移除class1，condition2处理方式相同。配置内容需符合json格式。</p>
+<p>例子：<a href="http://www.nodom.org/route/tutorial/dclass" target="_blank" rel="noopener">class指令</a></p>
+<h2 id="show指令"><a href="#show指令" class="headerlink" title="show指令"></a>show指令</h2><p>show指令用于显示或隐藏view，如果show对应的条件为真，则显示该view，否则隐藏该view。使用方式为x-show=’condition’。</p>
+<p>例子：<a href="http://www.nodom.org/route/tutorial/dshow" target="_blank" rel="noopener">show指令</a></p>
+<h2 id="field指令"><a href="#field指令" class="headerlink" title="field指令"></a>field指令</h2><p>field指令用于绑定form表单下的输入类型元素，如input、select、textarea等，可以实现输入元素与数据项之间的双向绑定。</p>
+<blockquote>
+<p>其中：<br>单选框radio，多个radio的x-field必须设置为同一个数据项，同时需设置value属性，该属性与数据项可能选值保持一致<br>复选框checkbox，checkbox除了设置x-field外，还需要设置yes-value 和 no-value 属性，分别对应为选中时x-field对应数据项的值和未选中时的值。<br>下拉列表select，option可以由给定数据用repeat生成，select设置x-field即可。</p>
+</blockquote>
+<p>例子：<a href="http://www.nodom.org/route/tutorial/dfield" target="_blank" rel="noopener">field指令</a></p>
+<h2 id="validity指令"><a href="#validity指令" class="headerlink" title="validity指令"></a>validity指令</h2><p>validity指令用于form表单的数据项校验，该指令对应的view必须放置于form元素下才能正常工作，使用方式为x-validity=’fieldname’,fieldname对应输入框的name属性，表示针对该输入框进行校验，仅支持html5规范中支持的校验规则，包括required、min、max、pattern、type。<br><br>使用该指令包，系统会自动生成DD.$validity对象，DD.$validity.check()方法可用于检测对应的form校验是否通过。</p>
+<p>例子：<a href="http://www.nodom.org/route/tutorial/dvalidity" target="_blank" rel="noopener">validity指令</a></p>
+<h2 id="router指令"><a href="#router指令" class="headerlink" title="router指令"></a>router指令</h2><p>路由用于管理模块的加载模块和模块间的切换，类似于（但不限于）一个超链接操作后执行页面切换。目前仅支持html5的pushstate和popstate方法，所以路由的支持需要浏览器支持html5。</p>
+<blockquote>
+<p>浏览器刷新</p>
+<blockquote>
+<p>路由切换通过pushstate修改浏览器地址，如<a href="http://www.yourdomain.com/route1/xxx，而你的网站不存在此资源，这个时候进行刷新，服务器会返回404错误，为了服务器能正常返回，可以在服务器配置404错误跳转页面，请参考各应用服务器配置说明。为解决该问题，需要在页面中得到服务器返回的路由路径，并调用DD.Router.start方法进行路由跳转" target="_blank" rel="noopener">www.yourdomain.com/route1/xxx，而你的网站不存在此资源，这个时候进行刷新，服务器会返回404错误，为了服务器能正常返回，可以在服务器配置404错误跳转页面，请参考各应用服务器配置说明。为解决该问题，需要在页面中得到服务器返回的路由路径，并调用DD.Router.start方法进行路由跳转</a></p>
+</blockquote>
+<p>参数路由</p>
+<blockquote>
+<p>路由可以带参数进行传递,以“/:参数名”方式进行定义，如/path/:param1/:param2，使用时x-route=’/path/:v1/:v2’，这样在当前模块可以使用$route.data[‘param1’] 得到v1。</p>
+</blockquote>
+<p>路由嵌套</p>
+<blockquote>
+<p>路由设置子路由，在设置x-route指令时，需要从根路由到子路由的每一级路径合并在一起。如父路由r1路径为“/route1”，r1的子路由r2路径为“/route2”,r2的子路由r3的路径为“/route3”，则x-route=’/route1/route2/route3’才能访问到路由r3，加载方式为，先加载并渲染r1对应的模块，然后加载并渲染r2对应的模块，最后加载并渲染r3对应的模块。</p>
+</blockquote>
+<p>切换效果设置</p>
+<blockquote>
+<p>路由切换支持动画效果，NoDom支持左右滑动的切换效果，需在路由使用前设置DD.Router.switch.style=’slide’，该配置项设置路由切换效果为滑动，默认为none，DD.Router.switch.switcType=’0.5s’，该配置为滑动时长为0.5秒，默认为1s。</p>
+</blockquote>
+<p>路由创建</p>
+<blockquote>
+<p>可通过DD.createRoute(config)创建一个或多个路由对象。config可以为一个参数对象，返回创建的路由，也可以为参数对象数组，无返回。参数对象配置参考配置对象参数说明。</p>
+</blockquote>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"root"</span>&gt;</span>当前时间:_&#123;date1|date:'yyyy/MM/dd'&#125;_<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">x-route</span>=<span class="string">'/router'</span> <span class="attr">x-class</span>=<span class="string">"&#123;cls1:'page1'&#125;"</span> <span class="attr">active</span>=<span class="string">'_&#123;page1&#125;_'</span>&gt;</span>page1<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">x-router</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  DD.config.appPath = '/examples/route/pages/';</span></span><br><span class="line"><span class="undefined">  DD.config.routerPrePath = '/route';</span></span><br><span class="line"><span class="undefined">  DD.createModule(&#123;</span></span><br><span class="line"><span class="undefined">    name: 'mainModule',</span></span><br><span class="line"><span class="undefined">    el: '.root',</span></span><br><span class="line"><span class="undefined">    root: true,</span></span><br><span class="line"><span class="undefined">    data: &#123;</span></span><br><span class="line"><span class="undefined">      page1: true,</span></span><br><span class="line"><span class="undefined">      page2: false,</span></span><br><span class="line"><span class="undefined">      date1: (new Date()).getTime(),</span></span><br><span class="line"><span class="undefined">      x: &#123;</span></span><br><span class="line"><span class="undefined">        y: &#123;</span></span><br><span class="line"><span class="undefined">          z: 1</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    methods: &#123;</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">  DD.createModule([&#123;</span></span><br><span class="line"><span class="undefined">    name: 'tdir_router',</span></span><br><span class="line"><span class="undefined">    templateUrl: '/router/router.html',</span></span><br><span class="line"><span class="undefined">    data: &#123;</span></span><br><span class="line"><span class="undefined">      routes: [&#123;</span></span><br><span class="line"><span class="undefined">        title: '路由用法1-基本用法',</span></span><br><span class="line"><span class="undefined">        path: '/router/route1',</span></span><br><span class="line"><span class="undefined">        active: true</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="undefined">      &#123;</span></span><br><span class="line"><span class="undefined">        title: '路由用法2-路由参数用法',</span></span><br><span class="line"><span class="undefined">        path: '/router/directive/route2',</span></span><br><span class="line"><span class="undefined">        active: false</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="undefined">      &#123;</span></span><br><span class="line"><span class="undefined">        title: '路由用法3-路由嵌套用法',</span></span><br><span class="line"><span class="undefined">        path: '/router/route3',</span></span><br><span class="line"><span class="undefined">        active: false</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">      ]</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    delayInit: true,</span></span><br><span class="line"><span class="undefined">  &#125;, &#123;</span></span><br><span class="line"><span class="undefined">    name: 'r_pmod1',</span></span><br><span class="line"><span class="undefined">    templateUrl: 'router/router1.html',</span></span><br><span class="line"><span class="undefined">    data: &#123;</span></span><br><span class="line"><span class="undefined">      home: true,</span></span><br><span class="line"><span class="undefined">      list: false,</span></span><br><span class="line"><span class="undefined">      data: false</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    methods: &#123;</span></span><br><span class="line"><span class="undefined">      onFirstRender: function () &#123;</span></span><br><span class="line"><span class="undefined">        // console.log(this);</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;, &#123;</span></span><br><span class="line"><span class="undefined">    name: 'r_pmod2',</span></span><br><span class="line"><span class="undefined">    templateUrl: 'router/router2.html',</span></span><br><span class="line"><span class="undefined">    data: &#123;</span></span><br><span class="line"><span class="undefined">      routes: [&#123;</span></span><br><span class="line"><span class="undefined">        title: '首页',</span></span><br><span class="line"><span class="undefined">        path: '/router/directive/route2/rparam/home/1',</span></span><br><span class="line"><span class="undefined">        active: true</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="undefined">      &#123;</span></span><br><span class="line"><span class="undefined">        title: '列表',</span></span><br><span class="line"><span class="undefined">        path: '/router/directive/route2/rparam/list/2',</span></span><br><span class="line"><span class="undefined">        active: false</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="undefined">      &#123;</span></span><br><span class="line"><span class="undefined">        title: '数据',</span></span><br><span class="line"><span class="undefined">        path: '/router/directive/route2/rparam/data/3',</span></span><br><span class="line"><span class="undefined">        active: false</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">      ]</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;, &#123;</span></span><br><span class="line"><span class="undefined">    name: 'r_pmod3',</span></span><br><span class="line"><span class="undefined">    templateUrl: 'router/router3.html'</span></span><br><span class="line"><span class="undefined">  &#125;, &#123;</span></span><br><span class="line"><span class="undefined">    name: 'r_mod1',</span></span><br><span class="line"><span class="xml">    template: "<span class="tag">&lt;<span class="name">div</span>&gt;</span>这是首页,路径是_&#123;$route.path&#125;_<span class="tag">&lt;/<span class="name">div</span>&gt;</span>"</span></span><br><span class="line"><span class="undefined">  &#125;, &#123;</span></span><br><span class="line"><span class="undefined">    name: 'r_mod2',</span></span><br><span class="line"><span class="xml">    template: "<span class="tag">&lt;<span class="name">div</span>&gt;</span>这是商品列表页,路径是_&#123;$route.path&#125;_<span class="tag">&lt;/<span class="name">div</span>&gt;</span>"</span></span><br><span class="line"><span class="undefined">  &#125;, &#123;</span></span><br><span class="line"><span class="undefined">    name: 'r_mod3',</span></span><br><span class="line"><span class="xml">    template: "<span class="tag">&lt;<span class="name">div</span>&gt;</span>这是数据页,路径是_&#123;$route.path&#125;_<span class="tag">&lt;/<span class="name">div</span>&gt;</span>"</span></span><br><span class="line"><span class="undefined">  &#125;, &#123;</span></span><br><span class="line"><span class="undefined">    name: 'r_mod4',</span></span><br><span class="line"><span class="xml">    template: "<span class="tag">&lt;<span class="name">div</span> <span class="attr">test</span>=<span class="string">'1'</span>&gt;</span>这是_&#123;$route.data.page&#125;_页,编号是_&#123;$route.data.id&#125;_<span class="tag">&lt;/<span class="name">div</span>&gt;</span>"</span></span><br><span class="line"><span class="undefined">  &#125;, &#123;</span></span><br><span class="line"><span class="undefined">    name: 'r_mod5',</span></span><br><span class="line"><span class="xml">    template: "<span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">'code1'</span>&gt;</span>路由r1加载的模块<span class="tag">&lt;<span class="name">dir</span> <span class="attr">x-router</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>"</span></span><br><span class="line"><span class="undefined">  &#125;, &#123;</span></span><br><span class="line"><span class="undefined">    name: 'r_mod6',</span></span><br><span class="line"><span class="undefined">    template: '路由r2加载的模块'</span></span><br><span class="line"><span class="undefined">  &#125;]);</span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="undefined">  DD.createRoute(&#123;</span></span><br><span class="line"><span class="undefined">    path: '/router',</span></span><br><span class="line"><span class="undefined">    module: 'tdir_router',</span></span><br><span class="line"><span class="undefined">    routes: [&#123;</span></span><br><span class="line"><span class="undefined">      path: '/route1',</span></span><br><span class="line"><span class="undefined">      module: 'r_pmod1',</span></span><br><span class="line"><span class="undefined">      routes: [&#123;</span></span><br><span class="line"><span class="undefined">        path: '/home',</span></span><br><span class="line"><span class="undefined">        module: 'r_mod1',</span></span><br><span class="line"><span class="undefined">        useParentPath: true</span></span><br><span class="line"><span class="undefined">      &#125;, &#123;</span></span><br><span class="line"><span class="undefined">        path: '/list',</span></span><br><span class="line"><span class="undefined">        module: 'r_mod2',</span></span><br><span class="line"><span class="undefined">        useParentPath: true</span></span><br><span class="line"><span class="undefined">      &#125;, &#123;</span></span><br><span class="line"><span class="undefined">        path: '/data',</span></span><br><span class="line"><span class="undefined">        module: 'r_mod3',</span></span><br><span class="line"><span class="undefined">        useParentPath: true</span></span><br><span class="line"><span class="undefined">      &#125;],</span></span><br><span class="line"><span class="undefined">      onLeave: function (model) &#123;</span></span><br><span class="line"><span class="undefined">        // console.log(this,model);</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;, &#123;</span></span><br><span class="line"><span class="undefined">      path: '/directive/route2',</span></span><br><span class="line"><span class="undefined">      module: 'r_pmod2',</span></span><br><span class="line"><span class="undefined">      onEnter: function () &#123;</span></span><br><span class="line"><span class="undefined">        // console.log('route2');</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="undefined">      routes: [&#123;</span></span><br><span class="line"><span class="undefined">        path: '/rparam/:page/:id',</span></span><br><span class="line"><span class="undefined">        module: 'r_mod4',</span></span><br><span class="line"><span class="undefined">        onEnter: function () &#123;</span></span><br><span class="line"><span class="undefined">          // console.log('route2/rparam');</span></span><br><span class="line"><span class="undefined">        &#125;</span></span><br><span class="line"><span class="undefined">      &#125;]</span></span><br><span class="line"><span class="undefined">    &#125;, &#123;</span></span><br><span class="line"><span class="undefined">      path: '/route3',</span></span><br><span class="line"><span class="undefined">      module: 'r_pmod3',</span></span><br><span class="line"><span class="undefined">      routes: [&#123;</span></span><br><span class="line"><span class="undefined">        path: '/r1',</span></span><br><span class="line"><span class="undefined">        module: 'r_mod5',</span></span><br><span class="line"><span class="undefined">        routes: [&#123;</span></span><br><span class="line"><span class="undefined">          path: '/r2',</span></span><br><span class="line"><span class="undefined">          module: 'r_mod6'</span></span><br><span class="line"><span class="undefined">        &#125;]</span></span><br><span class="line"><span class="undefined">      &#125;]</span></span><br><span class="line"><span class="undefined">    &#125;]</span></span><br><span class="line"><span class="undefined">  &#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="event"><a href="#event" class="headerlink" title="event"></a>event</h1><p>NoDom提供了专门的事件类DD.Event，用于处理view的事件操作。类似于指令用法，事件用e-开头，如e-click，e-touchstart等，事件支持所有的html元素标准事件。事件处理方法必须在模块的methods中定义，事件方法会自带三个参数 event(事件)、viewdata(触发事件的view对应的数据对象)、view(视图)，this指向model(模型)。</p>
+<p>NoDom提供了触屏操作事件，包括tap(点击)、swipeleft(左滑)、swiperight(右滑)、swipeup(上滑)、swipedown(下滑)。</p>
+<p>NoDom支持delg(事件代理)、nopopo(禁止冒泡)、once(单次执行)配置。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">'result code1'</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">'colorimp'</span>&gt;</span>点击后查看控制台输出内容<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">e-click</span>=<span class="string">'clickdiv'</span>&gt;</span></span><br><span class="line">    点击我试试</span><br><span class="line">  <span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">'colorimp'</span>&gt;</span>点击下面的商品，查看控制台输出内容。<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!--这儿做了事件代理，事件会注册到ul元素上--&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span> <span class="attr">x-repeat</span>=<span class="string">'datas'</span>  <span class="attr">e-click</span>=<span class="string">'clickli:delg'</span>&gt;</span></span><br><span class="line">        _&#123;name&#125;_ 的价格是_&#123;price&#125;_,折扣是_&#123;discount&#125;_。</span><br><span class="line">    <span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">  DD.createModule(&#123;</span></span><br><span class="line"><span class="undefined">    el: '.code1',</span></span><br><span class="line"><span class="undefined">    data: &#123;</span></span><br><span class="line"><span class="undefined">      datas: [</span></span><br><span class="line"><span class="undefined">        &#123; name: '酷炫夹克', price: 200, discount: 0.6 &#125;,</span></span><br><span class="line"><span class="undefined">        &#123; name: '运动棉袜', price: 8, discount: 0.9 &#125;,</span></span><br><span class="line"><span class="undefined">        &#123; name: '钥匙扣', price: 15, discount: 0.7 &#125;</span></span><br><span class="line"><span class="undefined">      ]</span></span><br><span class="line"><span class="undefined">    &#125;,</span></span><br><span class="line"><span class="undefined">    methods: &#123;</span></span><br><span class="line"><span class="undefined">      clickdiv: function (e, data, view) &#123;</span></span><br><span class="line"><span class="undefined">        console.log(e, data, view);</span></span><br><span class="line"><span class="undefined">      &#125;,</span></span><br><span class="line"><span class="undefined">      clickli: function (e, data, view) &#123;</span></span><br><span class="line"><span class="undefined">        console.log(e, data, view);</span></span><br><span class="line"><span class="undefined">      &#125;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;);</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h1 id="API"><a href="#API" class="headerlink" title="API"></a>API</h1><p>详见官网API，<a href="http://www.nodom.org/route/api/content/module/ddmodulecls" target="_blank" rel="noopener">Nodom API</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>zhangzhihui</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://onlinerobotfrontend.github.io/Blog/2020/01/01/nodom/" title="Nodom.js前端框架介绍">https://onlinerobotfrontend.github.io/Blog/2020/01/01/nodom/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/Blog/tags/js框架-MVVM/" rel="tag"># js框架, MVVM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Blog/2019/12/12/Reacthooks/" rel="next" title="React Hooks分享">
+                <i class="fa fa-chevron-left"></i> React Hooks分享
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Blog/2020/03/14/npmPublish/" rel="prev" title="如何创建并发布自己的npm包">
+                如何创建并发布自己的npm包 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNzQ4NC8xNDAxNg=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/Blog/images/avatar.jpeg"
+                alt="OnlineRobotFrontEnd" />
+            
+              <p class="site-author-name" itemprop="name">OnlineRobotFrontEnd</p>
+              <p class="site-description motion-element" itemprop="description">京东数科在线机器人前端团队</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/Blog/archives/">
+                
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/Blog/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/Blog/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Nodom介绍"><span class="nav-number">1.</span> <span class="nav-text">Nodom介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Nodom-js是什么？"><span class="nav-number">1.1.</span> <span class="nav-text">Nodom.js是什么？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模块"><span class="nav-number">2.</span> <span class="nav-text">模块</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#简介"><span class="nav-number">2.1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用法"><span class="nav-number">2.2.</span> <span class="nav-text">用法</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模型"><span class="nav-number">3.</span> <span class="nav-text">模型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#表达式"><span class="nav-number">4.</span> <span class="nav-text">表达式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#过滤器"><span class="nav-number">5.</span> <span class="nav-text">过滤器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#指令"><span class="nav-number">6.</span> <span class="nav-text">指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#model指令"><span class="nav-number">6.1.</span> <span class="nav-text">model指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#repeat指令"><span class="nav-number">6.2.</span> <span class="nav-text">repeat指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#if-else指令"><span class="nav-number">6.3.</span> <span class="nav-text">if/else指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#class指令"><span class="nav-number">6.4.</span> <span class="nav-text">class指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#show指令"><span class="nav-number">6.5.</span> <span class="nav-text">show指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#field指令"><span class="nav-number">6.6.</span> <span class="nav-text">field指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#validity指令"><span class="nav-number">6.7.</span> <span class="nav-text">validity指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#router指令"><span class="nav-number">6.8.</span> <span class="nav-text">router指令</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#event"><span class="nav-number">7.</span> <span class="nav-text">event</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#API"><span class="nav-number">8.</span> <span class="nav-text">API</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OnlineRobotFrontEnd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/Blog/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/Blog/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/Blog/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/Blog/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/Blog/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,1467 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/Blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/Blog/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon.ico?v=6.3.0">
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/Blog/',
+    scheme: 'Gemini',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="原码, 反码, 补码">
+<meta name="keywords" content="计算机基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="位操作符">
+<meta property="og:url" content="https://onlinerobotfrontend.github.io/Blog/2019/03/14/bitwise-operators/index.html">
+<meta property="og:site_name" content="OnlineRobotFrontEnd">
+<meta property="og:description" content="原码, 反码, 补码">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-08-05T13:06:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="位操作符">
+<meta name="twitter:description" content="原码, 反码, 补码">
+
+
+
+
+
+
+  <link rel="canonical" href="https://onlinerobotfrontend.github.io/Blog/2019/03/14/bitwise-operators/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>位操作符 | OnlineRobotFrontEnd</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/Blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OnlineRobotFrontEnd</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">技术博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/Blog/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/Blog/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/Blog/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/Blog/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://onlinerobotfrontend.github.io/Blog/Blog/2019/03/14/bitwise-operators/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OnlineRobotFrontEnd">
+      <meta itemprop="description" content="京东数科在线机器人前端团队">
+      <meta itemprop="image" content="/Blog/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OnlineRobotFrontEnd">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">位操作符
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-03-14 00:00:00" itemprop="dateCreated datePublished" datetime="2019-03-14T00:00:00+08:00">2019-03-14</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-08-05 21:06:22" itemprop="dateModified" datetime="2020-08-05T21:06:22+08:00">2020-08-05</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/Blog/categories/计算机基础/" itemprop="url" rel="index"><span itemprop="name">计算机基础</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="原码-反码-补码"><a href="#原码-反码-补码" class="headerlink" title="原码, 反码, 补码"></a>原码, 反码, 补码</h2><a id="more"></a>
+<h3 id="原码（True-Form）"><a href="#原码（True-Form）" class="headerlink" title="原码（True Form）"></a>原码（True Form）</h3><p>使用高位作为符号位。最高位为0时表示正数，最高位为1时则表示为负数。其余位使用此数字数值本身二进制的绝对值表示。</p>
+<p><strong>原码的设计不便于加减运算。</strong></p>
+<h3 id="反码（Ones’-Complement）"><a href="#反码（Ones’-Complement）" class="headerlink" title="反码（Ones’ Complement）"></a>反码（Ones’ Complement）</h3><p>使用高位作为符号位。最高位为0时表示正数，最高位为1时则表示为负数。正数的反码还是正数本身，负数的补码就是其绝对值相同的正数取反的结果。即在原码的基础上，符号位不变，其他位取反的结果。</p>
+<p><strong>反码的设计依然不便于加减运算。</strong></p>
+<h3 id="补码（Twos’-Complement）"><a href="#补码（Twos’-Complement）" class="headerlink" title="补码（Twos’ Complement）"></a>补码（Twos’ Complement）</h3><p>使用高位作为符号位。最高位为0时表示正数，最高位为1时则表示为负数。正数的补码就是正数本身，负数的补码就是其原码取反加一的结果。补码设计的目的，就是讲将原二进制数，分一半做负数，而取反加一的规律则是在此设计的基础上归纳得来的。所以，使用“取反加一”来定义补码，是与设计相悖的。</p>
+<p><strong>补码的设计，方便了二进制的加减运算。</strong></p>
+<h3 id="转换"><a href="#转换" class="headerlink" title="转换"></a>转换</h3><ul>
+<li>正数：原码，反码，补码都一样。</li>
+<li>负数：<ul>
+<li>原码和反码的相互转换：符号位不变，数值位按位取反</li>
+<li>原码和补码的相互转换：符号位不变，数值位按位取反,末位再加1</li>
+<li>已知补码，求原码的负数的补码：符号位和数值位都取反，末位再加1</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">// 8的八位原码，反码，补码</span><br><span class="line">// 0000 1000</span><br><span class="line"></span><br><span class="line">// -8的八位原码，反码，补码</span><br><span class="line">// 原：1000 1000</span><br><span class="line">// 反：1111 0111</span><br><span class="line">// 补：1111 1000</span><br><span class="line"></span><br><span class="line">// 实现一个二进制类：</span><br><span class="line">function Binary(num, opt)&#123;</span><br><span class="line">    this.num = num;</span><br><span class="line">    this.opt = opt;</span><br><span class="line">    this.binary_str = num.toString(2);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Binary.prototype.getTrues= function(bitwise) &#123;</span><br><span class="line">    var trues = &apos;&apos;;</span><br><span class="line">    if (this.num &gt;= 0) &#123;</span><br><span class="line">        trues = (Array(bitwise).join(&quot;0&quot;) + this.binary_str).slice(-bitwise);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(this.num &lt; 0)&#123;</span><br><span class="line">        trues = &apos;1&apos; + (Array(bitwise).join(&quot;0&quot;) + this.binary_str).slice(-(bitwise - 1)).replace(&apos;-&apos;,0);</span><br><span class="line">    &#125;</span><br><span class="line">    return trues;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Binary.prototype.getOnes =function(bitwise) &#123;</span><br><span class="line">    var ones = &apos;&apos;;</span><br><span class="line">    if (this.num &gt;= 0) &#123;</span><br><span class="line">        ones = (Array(bitwise).join(&quot;0&quot;) + this.binary_str).slice(-bitwise);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(this.num &lt;= 0)&#123;</span><br><span class="line">        ones = &apos;1&apos; + (Array(bitwise).join(&quot;0&quot;) + this.binary_str).slice(-(bitwise - 1)).replace(&apos;-&apos;,0).split(&apos;&apos;).map(bit=&gt;bit==&apos;0&apos;?&apos;1&apos;:&apos;0&apos;).join(&apos;&apos;);</span><br><span class="line">    &#125;</span><br><span class="line">    return ones;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Binary.prototype.getTwos =function(bitwise) &#123;</span><br><span class="line">    var twos = &apos;&apos;,</span><br><span class="line">        parse_ones_add_1 = parseInt(this.getOnes(bitwise), 2) + 1;</span><br><span class="line">    if (this.num &gt;= 0) &#123;</span><br><span class="line">        twos = (Array(bitwise).join(&quot;0&quot;) + this.binary_str).slice(-bitwise);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(this.num &lt;= 0)&#123;</span><br><span class="line">        twos = &apos;1&apos;+(Array(bitwise).join(&quot;0&quot;) + parse_ones_add_1.toString(2)).slice(-(bitwise - 1)).replace(&apos;-&apos;,0);</span><br><span class="line">    &#125;</span><br><span class="line">    return twos;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Binary.prototype.toString = function(bitwise = 32) &#123;</span><br><span class="line">   var str = </span><br><span class="line">   `</span><br><span class="line">   ======</span><br><span class="line">    真值: $&#123;this.binary_str&#125;;</span><br><span class="line">    原码: $&#123;this.getTrues(bitwise)&#125;;</span><br><span class="line">    反码：$&#123;this.getOnes(bitwise)&#125;;</span><br><span class="line">    补码：$&#123;this.getTwos(bitwise)&#125;;</span><br><span class="line">   ======</span><br><span class="line">   `;</span><br><span class="line">   return str;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Binary.prototype.valueOf = function() &#123;</span><br><span class="line">   return parseInt(this.num, 10);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Binary.format = function(str = &apos;&apos;, length = 4, replaceStr = &apos; &apos;) &#123;</span><br><span class="line">    var reg = new RegExp(`(\\d)(?=(\\d&#123;$&#123;length&#125;&#125;)+(?!\\d))`, &apos;gi&apos;);</span><br><span class="line">    return str.replace(reg, `$&amp;$&#123;replaceStr&#125;`);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var a = new Binary(+new Binary(-11123));</span><br><span class="line">var format = Binary.format;</span><br><span class="line">console.log(a.toString(32));</span><br><span class="line">console.log(format(a.getTrues(32)));</span><br><span class="line">console.log(format(a.getOnes(32)));</span><br><span class="line">console.log(format(a.getTwos(32)));</span><br></pre></td></tr></table></figure>
+<p><a href="http://js.jsrun.net/2dXKp/edit" target="_blank" rel="noopener">在线实例：实现二进制类</a></p>
+<h2 id="位操作符"><a href="#位操作符" class="headerlink" title="位操作符"></a>位操作符</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p><strong>按位操作符（Bitwise operators）</strong> 将其操作数（operands）当作32位的比特序列（由0和1组成），而不是十进制、十六进制或八进制数值。例如，十进制数9，用二进制表示则为1001。按位操作符操作数字的二进制形式，但是返回值依然是标准的JavaScript数值。</p>
+<table>
+<thead>
+<tr>
+<th>运算符</th>
+<th>用法</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>按位与（ AND）</td>
+<td>a &amp; b</td>
+<td>对于每一个比特位，只有两个操作数相应的比特位都是1时，结果才为1，否则为0。</td>
+</tr>
+<tr>
+<td>按位或（OR）</td>
+<td>a &#124; b</td>
+<td>对于每一个比特位，当两个操作数相应的比特位至少有一个1时，结果为1，否则为0。</td>
+</tr>
+<tr>
+<td>按位异或（XOR）</td>
+<td>a ^ b</td>
+<td>对于每一个比特位，当两个操作数相应的比特位有且只有一个1时，结果为1，否则为0。</td>
+</tr>
+<tr>
+<td>按位非（NOT）</td>
+<td>~a</td>
+<td>反转操作数的比特位，即0变成1，1变成0。</td>
+</tr>
+<tr>
+<td>左移（Left shift）</td>
+<td>a &lt;&lt; b</td>
+<td>将 a 的二进制形式向左移 b (&lt; 32) 比特位，右边用0填充。</td>
+</tr>
+<tr>
+<td>有符号右移</td>
+<td>a &gt;&gt; b</td>
+<td>将 a 的二进制表示向右移 b (&lt; 32) 位，丢弃被移出的位。</td>
+</tr>
+<tr>
+<td>无符号右移</td>
+<td>a &gt;&gt;&gt; b</td>
+<td>将 a 的二进制表示向右移 b (&lt; 32) 位，丢弃被移出的位，并使用 0 在左侧填充。</td>
+</tr>
+</tbody>
+</table>
+<h3 id="有符号32位整数"><a href="#有符号32位整数" class="headerlink" title="有符号32位整数"></a>有符号32位整数</h3><p>所有的按位操作符的操作数都会被转成补码（two’s complement）形式的有符号32位整数。补码形式是指一个数的负对应值（negative counterpart）（如 5和-5）为数值的所有比特位反转后，再加1。反转比特位即该数值进行’非‘位运算，也即该数值的反码。</p>
+<h2 id="按位逻辑操作符"><a href="#按位逻辑操作符" class="headerlink" title="按位逻辑操作符"></a>按位逻辑操作符</h2><p>从概念上讲，按位逻辑操作符按遵守下面规则：</p>
+<ul>
+<li>操作数被转换成32位整数，用比特序列（0和1组成）表示。超过32位的数字会被丢弃。<br>例如, 以下具有32位以上的整数将转换为32位整数。</li>
+<li>第一个操作数的每个比特位与第二个操作数的相应比特位匹配：第一位对应第一位，第二位对应第二位，以此类推。</li>
+<li>位运算符应用到每对比特位，结果是新的比特值。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">function logOperate(a, b, op) &#123;</span><br><span class="line">    var ba = new Binary(a),</span><br><span class="line">        bb = new Binary(b),</span><br><span class="line">        format = Binary.format,</span><br><span class="line">        opList = &#123;</span><br><span class="line">           &apos;&amp;&apos;: (a, b) =&gt; a &amp; b,</span><br><span class="line">           &apos;|&apos;: (a, b) =&gt; a | b,</span><br><span class="line">           &apos;^&apos;: (a, b) =&gt; a ^ b,</span><br><span class="line">           &apos;~&apos;: a =&gt; ~a,</span><br><span class="line">           &apos;&lt;&lt;&apos;: (a, b) =&gt; a &lt;&lt; b,</span><br><span class="line">           &apos;&gt;&gt;&apos;: (a, b) =&gt; a &gt;&gt; b,</span><br><span class="line">           &apos;&gt;&gt;&gt;&apos;: (a, b) =&gt; a &gt;&gt; b,</span><br><span class="line">        &#125;,</span><br><span class="line">        bop = new Binary(opList[op](a, b));</span><br><span class="line"></span><br><span class="line">//  console.log(format(ba.getTrues(32)));</span><br><span class="line">//  console.log(format(bb.getTrues(32)));</span><br><span class="line">//  console.log(format(bop.getTrues(32)));</span><br><span class="line"></span><br><span class="line">//  console.log(format(ba.getOnes(32)));</span><br><span class="line">//  console.log(format(bb.getOnes(32)));</span><br><span class="line">//  console.log(format(bop.getOnes(32)));</span><br><span class="line"></span><br><span class="line">    console.log(format(ba.getTwos(32)));</span><br><span class="line">    console.log(format(bb.getTwos(32)));</span><br><span class="line">    console.log(format(bop.getTwos(32)));    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="amp-按位与"><a href="#amp-按位与" class="headerlink" title="&amp; (按位与)"></a>&amp; (按位与)</h3><p>对每对比特位执行与（AND）操作。只有 a 和 b 都是 1 时，a AND b 才是 1。与操作的真值表如下:</p>
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+<th>a&amp;b</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>将任一数值 x 与 0 执行按位与操作，其结果都为 0。将任一数值 x 与 -1 执行按位与操作，其结果都为 x。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">logOperate(2, 3, &apos;&amp;&apos;);</span><br><span class="line">// 0000 0000 0000 0000 0000 0000 0000 0010</span><br><span class="line">// 0000 0000 0000 0000 0000 0000 0000 0011</span><br><span class="line">// 0000 0000 0000 0000 0000 0000 0000 0010</span><br><span class="line"></span><br><span class="line">logOperate(-2, -3, &apos;&amp;&apos;);</span><br><span class="line">// 1111 1111 1111 1111 1111 1111 1111 1110</span><br><span class="line">// 1111 1111 1111 1111 1111 1111 1111 1101</span><br><span class="line">// 1111 1111 1111 1111 1111 1111 1111 1100</span><br></pre></td></tr></table></figure>
+<h3 id="按位或"><a href="#按位或" class="headerlink" title="| (按位或)"></a>| (按位或)</h3><p>对每一对比特位执行或（OR）操作。如果 a 或 b 为 1，则 a OR b 结果为 1。或操作的真值表：</p>
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+<th>a &#124; b</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p><strong>将任一数值 x 与 0 进行按位或操作，其结果都是 x。将任一数值 x 与 -1 进行按位或操作，其结果都为 -1。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">logOperate(2, 3, &apos;|&apos;);</span><br><span class="line">// 0000 0000 0000 0000 0000 0000 0000 0010</span><br><span class="line">// 0000 0000 0000 0000 0000 0000 0000 0011</span><br><span class="line">// 0000 0000 0000 0000 0000 0000 0000 0011</span><br><span class="line"></span><br><span class="line">logOperate(-2, -3, &apos;|&apos;);</span><br><span class="line">// 1111 1111 1111 1111 1111 1111 1111 1110</span><br><span class="line">// 1111 1111 1111 1111 1111 1111 1111 1101</span><br><span class="line">// 1111 1111 1111 1111 1111 1111 1111 1111</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">1 | 0 ;                       // 1</span><br><span class="line"></span><br><span class="line">1.1 | 0 ;                     // 1</span><br><span class="line"></span><br><span class="line">&apos;asfdasfda&apos; | 0 ;             // 0</span><br><span class="line"></span><br><span class="line">0 | 0 ;                       // 0</span><br><span class="line"></span><br><span class="line">(-1) | 0 ;                    // -1</span><br><span class="line"></span><br><span class="line">(-1.5646) | 0 ;               // -1</span><br><span class="line"></span><br><span class="line">[] | 0 ;                      // 0</span><br><span class="line"></span><br><span class="line">(&#123;&#125;) | 0 ;                    // 0</span><br><span class="line"></span><br><span class="line">&quot;123456&quot; | 0 ;            // 123456</span><br><span class="line"></span><br><span class="line">1.23E2 | 0;               // 123</span><br><span class="line"></span><br><span class="line">1.23E12 | 0;              // 1639353344</span><br><span class="line"></span><br><span class="line">-1.23E2 | 0;              // -123</span><br><span class="line"></span><br><span class="line">-1.23E12 | 0;             // -1639353344</span><br></pre></td></tr></table></figure>
+<h3 id="按位异或"><a href="#按位异或" class="headerlink" title="^ (按位异或)"></a>^ (按位异或)</h3><p>对每一对比特位执行异或（XOR）操作。当 a 和 b 不相同时，a XOR b 的结果为 1。异或操作真值表：</p>
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>b</th>
+<th>a ^ b</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">logOperate(2, 3, &apos;^&apos;);</span><br><span class="line">// 0000 0000 0000 0000 0000 0000 0000 0010</span><br><span class="line">// 0000 0000 0000 0000 0000 0000 0000 0011</span><br><span class="line">// 0000 0000 0000 0000 0000 0000 0000 0001</span><br><span class="line"></span><br><span class="line">logOperate(-2, -3, &apos;^&apos;);</span><br><span class="line">// 1111 1111 1111 1111 1111 1111 1111 1110</span><br><span class="line">// 1111 1111 1111 1111 1111 1111 1111 1101</span><br><span class="line">// 0000 0000 0000 0000 0000 0000 0000 0011</span><br></pre></td></tr></table></figure>
+<p>将任一数值 x 与 0 进行异或操作，其结果为 x。将任一数值 x 与 -1 进行异或操作，其结果为 ~x。</p>
+<h3 id="按位非"><a href="#按位非" class="headerlink" title="~ (按位非)"></a>~ (按位非)</h3><p>对每一个比特位执行非（NOT）操作。NOT a 结果为 a 的反转（即反码）。非操作的真值表：</p>
+<table>
+<thead>
+<tr>
+<th>a</th>
+<th>~a</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>1 </td>
+</tr>
+</tbody>
+</table>
+<p>对任一数值 x 进行按位非操作的结果为 -(x + 1)。例如，~5 结果为 -6。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 判断字符串是否存在：</span><br><span class="line">// eg: </span><br><span class="line">var str = &apos;heaven is a place nearby!&apos;;</span><br><span class="line">var search = &apos;a&apos;;</span><br><span class="line"></span><br><span class="line">// str.indexOf(search) &gt;= 0</span><br><span class="line">// -str.indexOf(search) &lt;= 0</span><br><span class="line">// ~str.indexOf(search)</span><br><span class="line"></span><br><span class="line">logOperate(2, 0, &apos;~&apos;);</span><br><span class="line">// 0000 0000 0000 0000 0000 0000 0000 0010</span><br><span class="line">// 1111 1111 1111 1111 1111 1111 1111 1101</span><br></pre></td></tr></table></figure>
+<h2 id="按位移动操作符"><a href="#按位移动操作符" class="headerlink" title="按位移动操作符"></a>按位移动操作符</h2><p>按位移动操作符有两个操作数：第一个是要被移动的数字，而第二个是要移动的长度。移动的方向根据操作符的不同而不同。</p>
+<p>按位移动会先将操作数转换为大端字节序顺序(big-endian order)的32位整数,并返回与左操作数相同类型的结果。右操作数应小于 32位，否则只有最低 5 个字节会被使用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">注：Big-Endian:高位字节排放在内存的低地址端，低位字节排放在内存的高地址端，</span><br><span class="line">又称为&quot;高位编址&quot;。</span><br><span class="line">Big-Endian是最直观的字节序：</span><br><span class="line">①把内存地址从左到右按照由低到高的顺序写出；</span><br><span class="line">②把值按照通常的高位到低位的顺序写出；</span><br><span class="line">③两者对照，一个字节一个字节的填充进去。</span><br></pre></td></tr></table></figure>
+<h3 id="lt-lt-左移"><a href="#lt-lt-左移" class="headerlink" title="&lt;&lt; (左移)"></a>&lt;&lt; (左移)</h3><p>该操作符会将第一个操作数向左移动指定的位数。向左被移出的位被丢弃，右侧用 0 补充。</p>
+<p><strong>在数字 x 上左移 y 比特得到 x * 2y.</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">logOperate(2, 3, &apos;~&apos;); // 16</span><br><span class="line">// 0000 0000 0000 0000 0000 0000 0000 0010</span><br><span class="line">// 0000 0000 0000 0000 0000 0000 0001 0000</span><br><span class="line"></span><br><span class="line">logOperate(-2, 3, &apos;~&apos;); // -16</span><br><span class="line">// 1111 1111 1111 1111 1111 1111 1111 1110</span><br><span class="line">// 1111 1111 1111 1111 1111 1111 1111 0000</span><br></pre></td></tr></table></figure>
+<h3 id="gt-gt-有符号右移"><a href="#gt-gt-有符号右移" class="headerlink" title="&gt;&gt; (有符号右移)"></a>&gt;&gt; (有符号右移)</h3><p>该操作符会将第一个操作数向右移动指定的位数。向右被移出的位被丢弃，拷贝最左侧的位以填充左侧。由于新的最左侧的位总是和以前相同，符号位没有被改变。所以被称作“符号传播”。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">logOperate(8, 3, &apos;&gt;&gt;&apos;);</span><br><span class="line">// 0000 0000 0000 0000 0000 0000 0000 1000</span><br><span class="line">// 0000 0000 0000 0000 0000 0000 0000 0001</span><br><span class="line"></span><br><span class="line">logOperate(-5, 4, &apos;&gt;&gt;&apos;);</span><br><span class="line">// 1111 1111 1111 1111 1111 1111 1111 1011</span><br><span class="line">// 1111 1111 1111 1111 1111 1111 1111 1111</span><br></pre></td></tr></table></figure>
+<h3 id="gt-gt-gt-无符号右移"><a href="#gt-gt-gt-无符号右移" class="headerlink" title="&gt;&gt;&gt; (无符号右移)"></a>&gt;&gt;&gt; (无符号右移)</h3><p>该操作符会将第一个操作数向右移动指定的位数。向右被移出的位被丢弃，左侧用0填充。因为符号位变成了 0，所以结果总是非负的。（译注：即便右移 0 个比特，结果也是非负的。）</p>
+<p>对于非负数，有符号右移和无符号右移总是返回相同的结果。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">logOperate(8, 3, &apos;&gt;&gt;&gt;&apos;);</span><br><span class="line">// 0000 0000 0000 0000 0000 0000 0000 1000</span><br><span class="line">// 0000 0000 0000 0000 0000 0000 0000 0001</span><br><span class="line"></span><br><span class="line">logOperate(-8, 3, &apos;&gt;&gt;&gt;&apos;);</span><br><span class="line">// 1111 1111 1111 1111 1111 1111 1111 1000</span><br><span class="line">// 1111 1111 1111 1111 1111 1111 1111 1111</span><br></pre></td></tr></table></figure>
+<p><a href="http://js.jsrun.net/vdXKp/edit" target="_blank" rel="noopener">位操作符代码实例</a></p>
+<h2 id="掩码"><a href="#掩码" class="headerlink" title="掩码"></a>掩码</h2><p>位运算经常被用来创建、处理以及读取标志位序列——一种类似二进制的变量。虽然可以使用变量代替标志位序列，但是这样可以节省内存（1/32）。</p>
+<p>掩码 (bitmask) 是一个通过与/或来读取标志位的位序列。典型的定义每个标志位的原语掩码如下，<br>例如，有四个标志位：A,B,C,D</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var FLAG_A = 1; // 0001</span><br><span class="line">var FLAG_B = 2; // 0010</span><br><span class="line">var FLAG_C = 4; // 0100</span><br><span class="line">var FLAG_D = 8; // 1000</span><br></pre></td></tr></table></figure>
+<p>新的掩码可以在以上掩码上使用逻辑运算创建。例如，掩码 1011 可以通过 FLAG_A、FLAG_B 和 FLAG_D 逻辑或得到：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var mask = FLAG_A | FLAG_B | FLAG_D; // 0001 | 0010 | 1000 =&gt; 1011</span><br></pre></td></tr></table></figure>
+<p>某个特定的位可以通过与掩码做逻辑与运算得到，通过与掩码的与运算可以去掉无关的位，得到特定的位。例如，掩码 0100 可以用来检查标志位 C 是否被置位：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">// 判断是否含有FLAG_C</span><br><span class="line">if (flags &amp; FLAG_C) &#123; // 0101 &amp; 0100 =&gt; 0100 =&gt; true</span><br><span class="line">   // do stuff</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一个有多个位被置位的掩码表达任一/或者的含义。例如，以下两个表达是等价的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// 如果我们有 FLAG_B 或者 FLAG_C 至少一个</span><br><span class="line">// (0101 &amp; 0010) || (0101 &amp; 0100) =&gt; 0000 || 0100 =&gt; true</span><br><span class="line">if ((flags &amp; FLAG_B) || (flags &amp; FLAG_C)) &#123;</span><br><span class="line">   // do stuff</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 等价于</span><br><span class="line"></span><br><span class="line">var mask = FLAG_B | FLAG_C; // 0010 | 0100 =&gt; 0110</span><br><span class="line">if (flags &amp; mask) &#123; // 0101 &amp; 0110 =&gt; 0100 =&gt; true</span><br><span class="line">   // do stuff</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以通过与掩码做或运算设置标志位，掩码中为 1 的位可以设置对应的位。例如掩码 1100 可用来设置位 C 和 D：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var mask = FLAG_C | FLAG_D; // 0100 | 1000 =&gt; 1100</span><br><span class="line">flags |= mask;   // 0101 | 1100 =&gt; 1101</span><br></pre></td></tr></table></figure>
+<p>可以通过与掩码做与运算清除标志位，掩码中为 0 的位可以设置对应的位。掩码可以通过对原语掩码做非运算得到。例如，掩码 1010 可以用来清除标志位 A 和 C ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var mask = ~(FLAG_A | FLAG_C); // ~0101 =&gt; 1010</span><br><span class="line">flags &amp;= mask;   // 1101 &amp; 1010 =&gt; 1000</span><br></pre></td></tr></table></figure>
+<p>如上的掩码同样可以通过 ~FLAG_A &amp; ~FLAG_C 得到（德摩根定律）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var mask = ~FLAG_A &amp; ~FLAG_C;</span><br><span class="line">flags &amp;= mask;   // 1101 &amp; 1010 =&gt; 1000</span><br></pre></td></tr></table></figure>
+<p>标志位可以使用异或运算切换。所有值为 1 的为可以切换对应的位。例如，掩码 0110 可以用来切换标志位 B 和 C：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var mask = FLAG_B | FLAG_C;</span><br><span class="line">flags = flags ^ mask;   // 1100 ^ 0110 =&gt; 1010</span><br></pre></td></tr></table></figure>
+<p>最后，所有标志位可以通过非运算翻转:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">// entering parallel universe...</span><br><span class="line">flags = ~flags;    // ~1010 =&gt; 0101</span><br></pre></td></tr></table></figure>
+<h2 id="位操作使用实例"><a href="#位操作使用实例" class="headerlink" title="位操作使用实例"></a>位操作使用实例</h2><h3 id="1-判断一个数a的奇偶："><a href="#1-判断一个数a的奇偶：" class="headerlink" title="1.判断一个数a的奇偶："></a>1.判断一个数a的奇偶：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">// 奇数</span><br><span class="line">a &amp; 1 === 1;</span><br><span class="line"></span><br><span class="line">// 偶数</span><br><span class="line">a &amp; 1 === 0;</span><br></pre></td></tr></table></figure>
+<h3 id="2-两个整数x-y的平均值："><a href="#2-两个整数x-y的平均值：" class="headerlink" title="2.两个整数x,y的平均值："></a>2.两个整数x,y的平均值：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const avarage = (x, y) =&gt; (x &amp; y) + ((x ^ y) &gt;&gt; 1);</span><br></pre></td></tr></table></figure>
+<h3 id="3-不使用缓存交换两个整数："><a href="#3-不使用缓存交换两个整数：" class="headerlink" title="3.不使用缓存交换两个整数："></a>3.不使用缓存交换两个整数：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">// 正常版本</span><br><span class="line">var swap1 = (x, y) =&gt; &#123;</span><br><span class="line">  if (x !== y ) &#123;</span><br><span class="line">    var z = x;</span><br><span class="line">    x = y;</span><br><span class="line">    y = z;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 使用位操作符</span><br><span class="line">var swap = (x, y) =&gt; &#123;</span><br><span class="line">  if (x !== y ) &#123;</span><br><span class="line">    x ^= y;</span><br><span class="line">    y ^= x;</span><br><span class="line">    x ^= y;   </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="4-老鼠试毒："><a href="#4-老鼠试毒：" class="headerlink" title="4.老鼠试毒："></a>4.老鼠试毒：</h3><p>假设有1000杯水，其中有一杯有毒，至少用多少只老鼠试出哪杯有毒?</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">// 使用位掩码解决</span><br><span class="line">// 假设共有8杯水，标记：</span><br><span class="line">var cup_a = 1; // 0001</span><br><span class="line">var cup_b = 2; // 0010</span><br><span class="line">var cup_c = 3; // 0011</span><br><span class="line">var cup_d = 4; // 0100</span><br><span class="line">var cup_e = 5; // 0101</span><br><span class="line">var cup_f = 6; // 0110</span><br><span class="line">var cup_g = 7; // 0111</span><br><span class="line">var cup_h = 8; // 1000</span><br><span class="line"></span><br><span class="line">// 转置矩阵可得：</span><br><span class="line">0000 0001</span><br><span class="line">0001 1110</span><br><span class="line">0110 0110</span><br><span class="line">1010 1010</span><br><span class="line"></span><br><span class="line">1234 5678</span><br><span class="line"></span><br><span class="line">// </span><br><span class="line">mouse_a = 8;</span><br><span class="line">mouse_b = 4 | 5 | 6 | 7;</span><br><span class="line">mouse_c = 2 | 3 | 6 | 7;</span><br><span class="line">mouse_d = 1 | 3 | 5 | 7;</span><br><span class="line"></span><br><span class="line">2^4 = 8;</span><br><span class="line">....</span><br><span class="line">2^10 = 1024</span><br><span class="line">也就是：0000000001，0000000010，0000000011，...，1111101000；</span><br><span class="line">道理同上。</span><br></pre></td></tr></table></figure>
+<h3 id="5-权限问题："><a href="#5-权限问题：" class="headerlink" title="5.权限问题："></a>5.权限问题：</h3><p>在实际开发中，我们常常遇到权限的判断的问题，比如说，不同的用户对系统有不同的操作权限，有的用户可能有多种权限，我们最常规的办法就是每一个权限定义一个BOOL值。<br>假设，某系统有4种权限，那么，就有了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line">// var role = &#123;</span><br><span class="line">//  a: &apos;a&apos;,</span><br><span class="line">//  b: &apos;b&apos;,</span><br><span class="line">//  c: &apos;c&apos;,</span><br><span class="line">//  c: &apos;d&apos;,</span><br><span class="line">// &#125;;</span><br><span class="line"></span><br><span class="line">// 判断某用户有三种权限： role.a &amp;&amp; role.b &amp;&amp; role.c</span><br><span class="line"></span><br><span class="line">// 使用位操作：</span><br><span class="line">// var role = &#123;</span><br><span class="line">//  a: 1 &lt;&lt; 0, // 0001</span><br><span class="line">//  b: 1 &lt;&lt; 1, // 0010</span><br><span class="line">//  c: 1 &lt;&lt; 2, // 0100</span><br><span class="line">//  d: 1 &lt;&lt; 3, // 1000</span><br><span class="line">// &#125;</span><br><span class="line"></span><br><span class="line">// 判断某用户有三种权限： role.a | role.b | role.c</span><br><span class="line"></span><br><span class="line">var role = &#123;</span><br><span class="line"> a: 1 &lt;&lt; 0, // 0001</span><br><span class="line"> b: 1 &lt;&lt; 1, // 0010</span><br><span class="line"> c: 1 &lt;&lt; 2, // 0100</span><br><span class="line"> d: 1 &lt;&lt; 3, // 1000</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function Permission(flag)&#123;</span><br><span class="line">    this.flag = flag;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 设置权限</span><br><span class="line">Permission.prototype.set = function(perm) &#123;</span><br><span class="line">    this.flag = perm;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 添加一项或多项权限</span><br><span class="line">Permission.prototype.enable = function(perm) &#123;</span><br><span class="line">    this.flag |= perm;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 删除一项或多项权限</span><br><span class="line">Permission.prototype.disable = function(perm) &#123;</span><br><span class="line">    this.flag &amp;= ~perm;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 是否拥有某些权限</span><br><span class="line">Permission.prototype.has = function(perm) &#123;</span><br><span class="line">    return (this.flag &amp; perm) === perm;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 是否禁用了某些权限</span><br><span class="line">Permission.prototype.not = function(prem) &#123;</span><br><span class="line">    return (this.flag &amp; perm) === 0;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 是否仅仅拥有某些权限</span><br><span class="line">Permission.prototype.only = function(perm) &#123;</span><br><span class="line">    return this.flag === perm;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 打印当前权限</span><br><span class="line">Permission.prototype.log = function() &#123;</span><br><span class="line">   var perm_list_key = [];</span><br><span class="line">   Object.keys(role).forEach(key =&gt; &#123;</span><br><span class="line">       if(this.has(role[key]))&#123;</span><br><span class="line">           perm_list_key.push(key);</span><br><span class="line">       &#125;</span><br><span class="line">   &#125;);</span><br><span class="line">   console.log(&apos;当前权限:&apos;,perm_list_key.join(&apos;,&apos;));</span><br><span class="line">   return perm_list_key;</span><br><span class="line">&#125;</span><br><span class="line">var perm_a = new Permission(role.a | role.b | role.c);</span><br><span class="line"></span><br><span class="line">// perm_a.disable(role.a);</span><br><span class="line">console.log(perm_a);</span><br></pre></td></tr></table></figure>
+<p><a href="http://js.jsrun.net/wdXKp/edit" target="_blank" rel="noopener">通过位操作实现一个权限类</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>leonliu</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://onlinerobotfrontend.github.io/Blog/2019/03/14/bitwise-operators/" title="位操作符">https://onlinerobotfrontend.github.io/Blog/2019/03/14/bitwise-operators/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/Blog/tags/计算机基础/" rel="tag"># 计算机基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Blog/2018/12/27/frontEndPractice/" rel="next" title="「JS-React-Redux+Dva」前端项目实践总结">
+                <i class="fa fa-chevron-left"></i> 「JS-React-Redux+Dva」前端项目实践总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Blog/2019/03/21/BOM/" rel="prev" title="BOM（Browser Object Model）浏览器对象模型">
+                BOM（Browser Object Model）浏览器对象模型 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNzQ4NC8xNDAxNg=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/Blog/images/avatar.jpeg"
+                alt="OnlineRobotFrontEnd" />
+            
+              <p class="site-author-name" itemprop="name">OnlineRobotFrontEnd</p>
+              <p class="site-description motion-element" itemprop="description">京东数科在线机器人前端团队</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/Blog/archives/">
+                
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/Blog/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/Blog/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#原码-反码-补码"><span class="nav-number">1.</span> <span class="nav-text">原码, 反码, 补码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#原码（True-Form）"><span class="nav-number">1.1.</span> <span class="nav-text">原码（True Form）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#反码（Ones’-Complement）"><span class="nav-number">1.2.</span> <span class="nav-text">反码（Ones’ Complement）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#补码（Twos’-Complement）"><span class="nav-number">1.3.</span> <span class="nav-text">补码（Twos’ Complement）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#转换"><span class="nav-number">1.4.</span> <span class="nav-text">转换</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#位操作符"><span class="nav-number">2.</span> <span class="nav-text">位操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#有符号32位整数"><span class="nav-number">2.2.</span> <span class="nav-text">有符号32位整数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按位逻辑操作符"><span class="nav-number">3.</span> <span class="nav-text">按位逻辑操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#amp-按位与"><span class="nav-number">3.1.</span> <span class="nav-text">&amp; (按位与)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按位或"><span class="nav-number">3.2.</span> <span class="nav-text">| (按位或)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按位异或"><span class="nav-number">3.3.</span> <span class="nav-text">^ (按位异或)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#按位非"><span class="nav-number">3.4.</span> <span class="nav-text">~ (按位非)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#按位移动操作符"><span class="nav-number">4.</span> <span class="nav-text">按位移动操作符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#lt-lt-左移"><span class="nav-number">4.1.</span> <span class="nav-text">&lt;&lt; (左移)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gt-gt-有符号右移"><span class="nav-number">4.2.</span> <span class="nav-text">&gt;&gt; (有符号右移)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gt-gt-gt-无符号右移"><span class="nav-number">4.3.</span> <span class="nav-text">&gt;&gt;&gt; (无符号右移)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#掩码"><span class="nav-number">5.</span> <span class="nav-text">掩码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#位操作使用实例"><span class="nav-number">6.</span> <span class="nav-text">位操作使用实例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-判断一个数a的奇偶："><span class="nav-number">6.1.</span> <span class="nav-text">1.判断一个数a的奇偶：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-两个整数x-y的平均值："><span class="nav-number">6.2.</span> <span class="nav-text">2.两个整数x,y的平均值：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-不使用缓存交换两个整数："><span class="nav-number">6.3.</span> <span class="nav-text">3.不使用缓存交换两个整数：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-老鼠试毒："><span class="nav-number">6.4.</span> <span class="nav-text">4.老鼠试毒：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-权限问题："><span class="nav-number">6.5.</span> <span class="nav-text">5.权限问题：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OnlineRobotFrontEnd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/Blog/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/Blog/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/Blog/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/Blog/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/Blog/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

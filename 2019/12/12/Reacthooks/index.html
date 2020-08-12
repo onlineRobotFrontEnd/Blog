@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/Blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/Blog/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon.ico?v=6.3.0">
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/Blog/',
+    scheme: 'Gemini',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="React Hooks分享React hooks是什么">
+<meta name="keywords" content="Blog 博客 JavaScript HTML CSS Node Nodejs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React Hooks分享">
+<meta property="og:url" content="https://onlinerobotfrontend.github.io/Blog/2019/12/12/Reacthooks/index.html">
+<meta property="og:site_name" content="OnlineRobotFrontEnd">
+<meta property="og:description" content="React Hooks分享React hooks是什么">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://onlinerobotfrontend.github.io/Blog/images/assets/1.png">
+<meta property="og:image" content="https://onlinerobotfrontend.github.io/Blog/images/assets/2.png">
+<meta property="og:image" content="https://onlinerobotfrontend.github.io/Blog/images/assets/66.png">
+<meta property="og:image" content="https://onlinerobotfrontend.github.io/Blog/images/assets/10.png">
+<meta property="og:image" content="https://onlinerobotfrontend.github.io/Blog/images/assets/6.png">
+<meta property="og:image" content="https://onlinerobotfrontend.github.io/Blog/images/assets/4.png">
+<meta property="og:image" content="https://onlinerobotfrontend.github.io/Blog/images/assets/16.png">
+<meta property="og:image" content="https://onlinerobotfrontend.github.io/Blog/images/assets/21.png">
+<meta property="og:image" content="https://onlinerobotfrontend.github.io/Blog/images/assets/22.png">
+<meta property="og:image" content="https://onlinerobotfrontend.github.io/Blog/images/assets/24.png">
+<meta property="og:updated_time" content="2020-08-05T13:06:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React Hooks分享">
+<meta name="twitter:description" content="React Hooks分享React hooks是什么">
+<meta name="twitter:image" content="https://onlinerobotfrontend.github.io/Blog/images/assets/1.png">
+
+
+
+
+
+
+  <link rel="canonical" href="https://onlinerobotfrontend.github.io/Blog/2019/12/12/Reacthooks/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>React Hooks分享 | OnlineRobotFrontEnd</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/Blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OnlineRobotFrontEnd</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">技术博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/Blog/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/Blog/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/Blog/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/Blog/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://onlinerobotfrontend.github.io/Blog/Blog/2019/12/12/Reacthooks/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OnlineRobotFrontEnd">
+      <meta itemprop="description" content="京东数科在线机器人前端团队">
+      <meta itemprop="image" content="/Blog/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OnlineRobotFrontEnd">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">React Hooks分享
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2019-12-12 00:00:00" itemprop="dateCreated datePublished" datetime="2019-12-12T00:00:00+08:00">2019-12-12</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-08-05 21:06:22" itemprop="dateModified" datetime="2020-08-05T21:06:22+08:00">2020-08-05</time>
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="React-Hooks分享"><a href="#React-Hooks分享" class="headerlink" title="React Hooks分享"></a>React Hooks分享</h1><h2 id="React-hooks是什么"><a href="#React-hooks是什么" class="headerlink" title="React hooks是什么"></a>React hooks是什么</h2><a id="more"></a>
+<p>1、类组件<br><code>class Counter extends Component{
+render(){  
+               return “hello world”
+                   }  
+            }</code><br>类组件的优点：<br>拥有state状态  </p>
+<ol>
+<li>需要生命周期函数  </li>
+<li>需要副作用操作  </li>
+<li>函数组件<br>`const Counter=()=&gt;{  <pre><code>return “hello world”
+</code></pre>}  `<br>2、函数式优点：  </li>
+</ol>
+<ul>
+<li>简单易懂  </li>
+<li>符合UI=f（state）的原则  </li>
+<li>函数式编程  </li>
+</ul>
+<p>react Hooks 是一些可以让你在函数组件里“钩入” React state 及生命周期等特性的函数<br>React hooks官网：<a href="https://zh-hans.reactjs.org/docs/hooks-intro.html" target="_blank" rel="noopener">https://zh-hans.reactjs.org/docs/hooks-intro.html</a><br><img src="/Blog/images/assets/1.png" alt="对比"></p>
+<h3 id="一、useState介绍"><a href="#一、useState介绍" class="headerlink" title="一、useState介绍"></a>一、useState介绍</h3><p>useState返回的值：<br>const [count,setCount]=useState(0);<br>const [属性, 操作属性的方法] = useState(默认值);<br>相当于一个解构：<br><code>const state=useState(0);   
+          const count=state[0];  
+    const setCount=state[1];</code></p>
+<p><img src="/Blog/images/assets/2.png" alt="对比"><br>useState返回结果可以任意取名，useState可以多个使用<br>使用useState规则： Hook 在每次渲染时都按照相同的顺序被调用<br>那么 React 怎么知道哪个 state 对应哪个 useState？<br>答案是 React 靠的是 Hook 调用的顺序。因为我们的示例中，Hook 的调用顺序在每次渲染中都是相同的，所以它能够正常工作<br><img src="/Blog/images/assets/66.png" alt="对比"><br>结论：不要在循环，条件或嵌套函数中调用 Hook， 确保总是在你的 React 函数的最顶层调用他们<br><img src="/Blog/images/assets/10.png" alt="对比"><br>使用Hook的规则：<br>1、只在最顶层使用 Hook<br>2、在 React 的函数组件中调用 Hook<br>3、在自定义 Hook 中调用其他 Hook遵循此规则<br>3、不要在普通的 JavaScript 函数和React class组件中调用 Hook<br>4、自定义hook，假设任何以 「use」 开头并紧跟着一个大写字母的函数就是一个 Hook，以便于react辨别函数内部可以调用其他的 Hook<br><img src="/Blog/images/assets/6.png" alt="对比"><br><img src="/Blog/images/assets/4.png" alt="对比"><br>state永远都是新的值<br>这一点同我们过去class组件中的state是完全不一样的。在class组件中，state一直是挂载在当前实例下，保持着同一个引用。<br>而在函数式组件中，没有this。<br>不管你的state是一个基本数据类型（如string、number），还是一个引用数据类型（如object），只要是通过useState获取的state，每一次render，都是新的值。 useState返回的状态更新方法，只是让下一次render时的state能获取到当前最新的值。而不是保持一个引用、更新那个引用值。</p>
+<h3 id="二、useEffect介绍"><a href="#二、useEffect介绍" class="headerlink" title="二、useEffect介绍"></a>二、useEffect介绍</h3><p>useEffect可以让你在函数组件中执行副作用操作：在 React 更新 DOM 之后运行一些额外的代码。比如发送网络请求，手动变更 DOM，事件监听，定时器……<br>useEffect 在渲染结束时执行，所以不会阻塞浏览器渲染进程<br>useEffect = componentDidMount  +   componentDidUpdate  +  componentWillUnmount ；<br>useEffect可以在一个组件中写多个，按顺序执行</p>
+<p>useEffect 模拟 componentDidMount 和 componentWillUnmount<br><code>useEffect (()  =&gt;  {     
+        //  只有DidMount调用这里  
+            return ()  =&gt;  {             
+                 //  只有unmount的时候走这里  
+                     }  
+                     },  [])；</code><br>Didmount：如果想执行只运行一次的 effect（仅在组件挂载和卸载时执行），可以传递一个空数组（[]）作为第二个参数。这就告诉 React 你的 effect 不依赖于 props 或 state 中的任何值，所以它永远都不需要重复执行<br>Unmount: effect 中return是 effect 可选的清除机制。每个 effect 都可以返回一个清除函数。如此可以将添加和移除订阅的逻辑放在一起。它们都属于 effect 的一部分  </p>
+<p>useEffect 模拟 componentDidUpdate<br>useEffect 会在每次渲染后都执行在第一次渲染之后和每次更新之后都会执行。去掉首次渲染就可以实现<br>componentDidUpdate<br>const mounted = useRef();<br>useEffect(()  =&gt;  {<br>         if  (!mounted.current)  {<br>                mounted.current = true;<br>                }  else  {<br>                        // do componentDidUpdate       }<br>                        })<br>因为useEffect 会在每次渲染后都执行，因此需要通过 useEffect 的第二个参数告诉 React 用到了哪些外部变量（第二个参数不是必须的）<br>第二个参数[param1,param2,param3,…]是或的关系，只要其中一个改变就触发更新</p>
+<p>因此需要开发者通过 useEffect 的第二个参数告诉 React 用到了哪些外部变量<br>而是effect本应该每次render都触发，但因为effect内部依赖了外部数据，外部数据不变则内部effect执行无意义。因此只有当外部数据变更时，effect才会重新触发。<br>useEffect规则：只要内部使用了某个外部变量，函数也好、变量也好，都应该填写到依赖配置中<br>useEffect的优势：<br>Class组件中是按照生命周期写逻辑componentDidMount 和 componentDidUpdate，componentWillUnmount<br>你可以使用多个 effect，将不相关逻辑分离到不同的 effect </p>
+<h3 id="三、useLayoutEffect介绍"><a href="#三、useLayoutEffect介绍" class="headerlink" title="三、useLayoutEffect介绍"></a>三、useLayoutEffect介绍</h3><p>useLayoutEffect在浏览器重新绘制页面布局前<br>useLayoutEffect内部的更新将会同步刷新<br>useLayoutEffect 可以看作是 useEffect 的同步版本，但是不同的是：<br>1、useEffect，使用useEffect不会阻塞浏览器的重绘<br>2、useLayoutEffect, 使用useLayoutEffect，会阻塞浏览器的重绘。如果你需要手动的修改Dom，推荐使用useLayoutEffect。因为如果在useEffect中更新Dom，useEffect不会阻塞重绘，用户可能会看到因为更新导致的闪烁<br>3、因为 useLayoutEffect 是同步的，如果我们要在 useLayoutEffect 调用状态更新，或者执行一些非常耗时的计算，可能会导致 React 运行时间过长，阻塞了浏览器的渲染<br><img src="/Blog/images/assets/16.png" alt="对比"></p>
+<h3 id="四、useContext介绍"><a href="#四、useContext介绍" class="headerlink" title="四、useContext介绍"></a>四、useContext介绍</h3><p>useContext的使用：可访问全局状态，避免一层层的传递状态。<br>`<br>const ThemeContext = React.createContext(‘light’);  </p>
+<p>&lt;ThemeContext.Provider value={theme}&gt;<br>      <appmiddle onclick="{toggleTheme}"><br>&lt;/ThemeContext.Provider&gt;  <code>Hooks之前的写法：</code>&lt;ThemeContext.Consumer&gt;<br>{theme  =&gt; (<div>{theme}</div>)}<br>&lt;/ThemeContext.Consumer&gt;  <code>Hooks之后的写法</code>const theme = useContext(ThemeContext);<div>{theme}</div>`  </appmiddle></p>
+<h3 id="五、useRef介绍"><a href="#五、useRef介绍" class="headerlink" title="五、useRef介绍"></a>五、useRef介绍</h3><p> useRef：  <code>const refContainer = useRef(initialValue);</code><br>useRef 返回一个可变的 ref { current: initValue } 对象，其 .current 属性被初始化为传递的参数（initialValue）。该对象在整个生命周期中保持不变。<br>从本质上讲，useRef就像一个“盒子”，可以在其.current财产中保持一个可变的价值。<br>useRef() Hooks 不仅适用于 DOM 引用。 “ref” 对象是一个通用容器，其 current 属性是可变的，可以保存任何值（可以是元素、对象、基本类型、甚至函数），类似于类上的实例属性。  </p>
+<p>useRef 主要有两个使用场景：<br>1、获取子组件或者 DOM 节点的句柄<br>2、渲染周期之间的共享数据的存储<br>使用场景：获取上一轮的 props 或 state<br>通过 useEffect 在组件渲染完毕后再执行的特性，再利用 useRef 的可变特性，让 usePrevious 的返回值是 “上一次” Render 时的值<br><code>function usePrevious(value)  {   
+      const ref = useRef();  
+      useEffect(() =&gt; {  
+     ref.current = value;   
+       });  
+      return ref.current;  
+ }</code>  </p>
+<h3 id="六、useCallback介绍"><a href="#六、useCallback介绍" class="headerlink" title="六、useCallback介绍"></a>六、useCallback介绍</h3><p> useCallback都会在组件第一次渲染的时候执行，之后会在其依赖的变量发生改变时再次执行，useCallback返回缓存inline函数。防止因属性更新时生成新的函数导致子组件重复渲染<br>useCallback接受函数和一个数组输入，并返回的一个缓存版本的回调函数，仅当重新渲染时数组中的值发生改变时，才会返回新的函数实例，这也就解决我们上面提到的优化子组件性能的问题，并且也不会有上面繁琐的步骤。<br>返回值为 回调函数，第一个参数为一个函数，第二个为一个数组，只有内部元素变化，返回的回调函数才会被重新创建<br><code>componentDidUpdate(prevProps) {  
+      if ( this.props.count   !==  prevProps.count &amp;&amp;         this.props.step !== prevProps.step) { 
+    this.props.fetchData();   
+      }  
+ }</code><br>useCallback(callback: T, deps: DependencyList): callback<br>把内联回调函数及依赖项数组作为参数传入 useCallback，它将返回该回调函数的 memoized 版本，该回调函数仅在某个依赖项改变时才会更新。当你把回调函数传递给经过优化的并使用引用相等性去避免非必要渲染（例如 shouldComponentUpdate）的子组件时，它将非常有用。  </p>
+<h3 id="七、React-memo介绍"><a href="#七、React-memo介绍" class="headerlink" title="七、React.memo介绍"></a>七、React.memo介绍</h3><p>在 Fucntion Component 中，React.memo 等效于 PureComponent，浅比较 props。<br>用 memo 做 PureRender   ===  函数组件中的shouldComponentUpdate:<br><code>const Child = memo((props) =&gt; {   
+     return    ……
+ }, (nextProps, prevProps) =&gt; {   
+       // 做我们想做的事情，类似shouldComponentUpdate   
+})</code>  </p>
+<p>使用 memo 包裹的组件，会在自身重渲染时，对每一个 props 项进行浅对比，如果引用没有变化，就不会触发重渲染。  </p>
+<h3 id="八、useMemo介绍"><a href="#八、useMemo介绍" class="headerlink" title="八、useMemo介绍"></a>八、useMemo介绍</h3><p><code>const a = useMemo(() =&gt; memorizeValue, deps)</code></p>
+<p>useMemo返回缓存数据和计算结果。<br>用 useMemo 做局部 PureRender<br>useMemo返回的是一个缓存的值。<br>也就是仅当重新渲染时数组中的值发生改变时，回调函数才会重新计算缓存数据，这可以使得我们避免在每次重新渲染时都进行复杂的数据计算。因此我们可以认为:<br>useCallback(fn, input) 等同于 useMemo(() =&gt; fn, input)<br>如果没有给useMemo传入第二个参数，则useMemo仅会在收到新的函数实例时，才重新计算，需要注意的是，React官方文档提示我们，useMemo仅可以作为一种优化性能的手段，不能当做语义上的保证，这就是说，也会React在某些情况下，即使数组中的数据未发生改变，也会重新执行。<br>Hooks性能<br>在现代浏览器中，与类相比，闭包的原始性能没有显著差异，除了在极端情况下。 此外，考虑到Hooks的设计在以下几个方面更有效：<br>1、钩子避免了类所需的大量开销，例如在构造函数中创建类实例和绑定事件处理程序的成本。<br>2、使用Hooks的惯用代码不需要深层组件树嵌套，这在使用高阶组件，渲染道具和上下文的代码库中很常见。 使用较小的组件树，React的工作量较少。<br>Hooks优势<br>1、方便复用状态逻辑<br>2、副作用的关注点分离<br>3、函数组件无 this 问题<br><img src="/Blog/images/assets/21.png" alt="对比"><br><img src="/Blog/images/assets/22.png" alt="对比"></p>
+<h3 id="九、useReducer"><a href="#九、useReducer" class="headerlink" title="九、useReducer"></a>九、useReducer</h3><p>useReducer主要用于更新复杂逻辑的状态<br>useReducers可以传入三个参数，第一个参数就是形如(state,action) =&gt; newState这样的reducer，第二参数是初始化默认值，第三个参数是一个函数，接受第二个参数进行计算获取默认值(可选)。<br>seReducer接收三个参数，reducer函数，initialArg初始值，init惰性初始值函数。reducer函数和Redux的reducer类似，接收state，以及action。返回更新后的state。如果传入三个参数，init(initialArg)将作为初始值。<br>useReducer在复杂场景下比useState更适用。<br>指定初始state<br>useReducer的第二个参数可以指定初始的state<br>惰性初始化<br>如果指定useReducer的第三个参数，useReducer的初始值会被设置为init(initialArg)<br>React 会确保 dispatch 函数的标识是稳定的，并且不会在组件重新渲染时改变。<br><img src="/Blog/images/assets/24.png" alt="对比"></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>zhangqing</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://onlinerobotfrontend.github.io/Blog/2019/12/12/Reacthooks/" title="React Hooks分享">https://onlinerobotfrontend.github.io/Blog/2019/12/12/Reacthooks/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Blog/2019/03/21/BOM/" rel="next" title="BOM（Browser Object Model）浏览器对象模型">
+                <i class="fa fa-chevron-left"></i> BOM（Browser Object Model）浏览器对象模型
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Blog/2020/01/01/nodom/" rel="prev" title="Nodom.js前端框架介绍">
+                Nodom.js前端框架介绍 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNzQ4NC8xNDAxNg=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/Blog/images/avatar.jpeg"
+                alt="OnlineRobotFrontEnd" />
+            
+              <p class="site-author-name" itemprop="name">OnlineRobotFrontEnd</p>
+              <p class="site-description motion-element" itemprop="description">京东数科在线机器人前端团队</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/Blog/archives/">
+                
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/Blog/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/Blog/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#React-Hooks分享"><span class="nav-number">1.</span> <span class="nav-text">React Hooks分享</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#React-hooks是什么"><span class="nav-number">1.1.</span> <span class="nav-text">React hooks是什么</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#一、useState介绍"><span class="nav-number">1.1.1.</span> <span class="nav-text">一、useState介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#二、useEffect介绍"><span class="nav-number">1.1.2.</span> <span class="nav-text">二、useEffect介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#三、useLayoutEffect介绍"><span class="nav-number">1.1.3.</span> <span class="nav-text">三、useLayoutEffect介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四、useContext介绍"><span class="nav-number">1.1.4.</span> <span class="nav-text">四、useContext介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#五、useRef介绍"><span class="nav-number">1.1.5.</span> <span class="nav-text">五、useRef介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#六、useCallback介绍"><span class="nav-number">1.1.6.</span> <span class="nav-text">六、useCallback介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#七、React-memo介绍"><span class="nav-number">1.1.7.</span> <span class="nav-text">七、React.memo介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#八、useMemo介绍"><span class="nav-number">1.1.8.</span> <span class="nav-text">八、useMemo介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#九、useReducer"><span class="nav-number">1.1.9.</span> <span class="nav-text">九、useReducer</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OnlineRobotFrontEnd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/Blog/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/Blog/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/Blog/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/Blog/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/Blog/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

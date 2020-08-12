@@ -1,0 +1,1386 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/Blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/Blog/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon.ico?v=6.3.0">
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/Blog/',
+    scheme: 'Gemini',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="元素选择符通配选择符 *选定所有的对象,出于性能考虑通常不建议使用因为会命中文档中所有的元素 123* &amp;#123;  rule&amp;#125;">
+<meta name="keywords" content="css基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="css属性:Selectors选择符">
+<meta property="og:url" content="https://onlinerobotfrontend.github.io/Blog/2018/09/05/selectors/index.html">
+<meta property="og:site_name" content="OnlineRobotFrontEnd">
+<meta property="og:description" content="元素选择符通配选择符 *选定所有的对象,出于性能考虑通常不建议使用因为会命中文档中所有的元素 123* &amp;#123;  rule&amp;#125;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-08-05T13:06:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="css属性:Selectors选择符">
+<meta name="twitter:description" content="元素选择符通配选择符 *选定所有的对象,出于性能考虑通常不建议使用因为会命中文档中所有的元素 123* &amp;#123;  rule&amp;#125;">
+
+
+
+
+
+
+  <link rel="canonical" href="https://onlinerobotfrontend.github.io/Blog/2018/09/05/selectors/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>css属性:Selectors选择符 | OnlineRobotFrontEnd</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/Blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OnlineRobotFrontEnd</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">技术博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/Blog/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/Blog/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/Blog/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/Blog/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://onlinerobotfrontend.github.io/Blog/Blog/2018/09/05/selectors/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OnlineRobotFrontEnd">
+      <meta itemprop="description" content="京东数科在线机器人前端团队">
+      <meta itemprop="image" content="/Blog/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OnlineRobotFrontEnd">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">css属性:Selectors选择符
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-09-05 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-05T00:00:00+08:00">2018-09-05</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-08-05 21:06:22" itemprop="dateModified" datetime="2020-08-05T21:06:22+08:00">2020-08-05</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/Blog/categories/css-basic/" itemprop="url" rel="index"><span itemprop="name">css basic</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="元素选择符"><a href="#元素选择符" class="headerlink" title="元素选择符"></a>元素选择符</h1><h2 id="通配选择符"><a href="#通配选择符" class="headerlink" title="通配选择符 *"></a>通配选择符 *</h2><p>选定所有的对象,出于性能考虑通常不建议使用因为会命中文档中所有的元素</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">* &#123;</span><br><span class="line">  rule</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h2 id="类型选择符"><a href="#类型选择符" class="headerlink" title="类型选择符"></a>类型选择符</h2><p>以文档语言对象类型作为选择符</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">div</span> &#123;</span><br><span class="line">  rule</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="ID-选择符"><a href="#ID-选择符" class="headerlink" title="ID 选择符"></a>ID 选择符</h2><p>以唯一标识符 id 属性作为选择符</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-id">#id</span> &#123;</span><br><span class="line">  rule</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="类选择符"><a href="#类选择符" class="headerlink" title="类选择符"></a>类选择符</h2><p>以 class 属性为选择符，不通与 ID 属性，class 属性可以定义多个</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.cls</span> &#123;</span><br><span class="line">  rule</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="关系选择符"><a href="#关系选择符" class="headerlink" title="关系选择符"></a>关系选择符</h1><h2 id="包含选择符-E-F"><a href="#包含选择符-E-F" class="headerlink" title="包含选择符(E F)"></a>包含选择符(E F)</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">E</span> <span class="selector-tag">F</span> &#123;</span><br><span class="line">  rule</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>选择所有被 E 元素包含的 F 元素。包含选择符将会命中所有符合条件的后代，包括儿子，孙子，孙子的孙子…</p>
+<h2 id="子选择符-E-gt-F"><a href="#子选择符-E-gt-F" class="headerlink" title="子选择符(E &gt; F)"></a>子选择符(E &gt; F)</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">E</span> &gt; <span class="selector-tag">F</span> &#123;</span><br><span class="line">  rule</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>选择所有作为 E 元素的子元素 F。与 包含选择符(E F) 不同的是，子选择符只能命中子元素，而不能命中孙辈。</p>
+<h2 id="相邻选择符-E-F"><a href="#相邻选择符-E-F" class="headerlink" title="相邻选择符(E + F)"></a>相邻选择符(E + F)</h2><p>选择紧贴在 E 元素之后 F 元素，元素 E 与 F 必须同属一个父级。</p>
+
+
+<iframe height="265" scrolling="no" title="相邻选择符" src="//codepen.io/scliuyang/embed/NLgEZv/?height=265&theme-id=0&default-tab= CSS,result&embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen <a href="https://codepen.io/scliuyang/pen/NLgEZv/" target="_blank" rel="noopener">相邻选择符</a> by scliuyang (<a href="https://codepen.io/scliuyang" target="_blank" rel="noopener">@scliuyang</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.
+</iframe>
+
+<h2 id="兄弟选择符-E-F"><a href="#兄弟选择符-E-F" class="headerlink" title="兄弟选择符(E ~ F)"></a>兄弟选择符(E ~ F)</h2><p>选择 E 元素后面的所有兄弟元素 F，元素 E 与 F 必须同属一个父级。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css">	<span class="comment">/* 相邻选择符(E+F) */</span></span></span><br><span class="line"><span class="css">	<span class="selector-tag">h3</span> + <span class="selector-tag">p</span> &#123; <span class="attribute">color</span>: <span class="number">#f00</span>; &#125;</span></span><br><span class="line"><span class="css">	<span class="comment">/* 兄弟选择符(E~F) */</span></span></span><br><span class="line"><span class="css">	<span class="selector-tag">h3</span> ~ <span class="selector-tag">p</span> &#123; <span class="attribute">color</span>: <span class="number">#f00</span>; &#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">h3</span>&gt;</span>这是一个标题<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>p1<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>p2<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>p3<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这个例子中，如果是相邻选择符，那么只有 p1 会变成红色；如果是兄弟选择符，那么 p1/p2/p3 都会变成红色；</p>
+<h1 id="属性选择符"><a href="#属性选择符" class="headerlink" title="属性选择符"></a>属性选择符</h1><h2 id="E-att"><a href="#E-att" class="headerlink" title="E[att]"></a>E[att]</h2><p>选择具有 att 属性的 E 元素。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css"><span class="selector-tag">img</span><span class="selector-attr">[alt]</span> &#123;</span></span><br><span class="line"><span class="undefined">	margin: 10px;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"图片url"</span> <span class="attr">alt</span>=<span class="string">""</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">src</span>=<span class="string">"图片url"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>此例，将会命中第一张图片，因为匹配到了 alt 属性</p>
+<h2 id="E-att-”val”"><a href="#E-att-”val”" class="headerlink" title="E[att=”val”]"></a>E[att=”val”]</h2><p>选择具有 att 属性且属性值等于 val 的 E 元素。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css"><span class="selector-tag">input</span><span class="selector-attr">[type="text"]</span> &#123;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">border</span>: 2<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#000</span>;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"submit"</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>此例，将会命中第一张 input，因为匹配到了 type 属性，并且属性值为 text</p>
+<h2 id="E-att-”val”-1"><a href="#E-att-”val”-1" class="headerlink" title="E[att~=”val”]"></a>E[att~=”val”]</h2><p>选择具有 att 属性且属性值为一用空格分隔的字词列表，其中一个等于 val 的 E 元素（包含只有一个值且该值等于 val 的情况）。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css"><span class="selector-tag">div</span><span class="selector-attr">[class~="a"]</span> &#123;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">border</span>: 2<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#000</span>;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"a"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"b"</span>&gt;</span>2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"a b"</span>&gt;</span>3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>此例，将会命中 1, 3 两个 div，因为匹配到了 class 属性，且属性值中有一个值为 a</p>
+<h2 id="E-att-”val”-2"><a href="#E-att-”val”-2" class="headerlink" title="E[att^=”val”]"></a>E[att^=”val”]</h2><p>选择具有 att 属性且属性值为以 val 开头的字符串的 E 元素。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css"><span class="selector-tag">div</span><span class="selector-attr">[class^="a"]</span> &#123;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">border</span>: 2<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#000</span>;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"abc"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"acb"</span>&gt;</span>2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"bac"</span>&gt;</span>3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>此例，将会命中 1, 2 两个 div，因为匹配到了 class 属性，且属性值以 a 开头</p>
+<h2 id="E-att-”val”-3"><a href="#E-att-”val”-3" class="headerlink" title="E[att$=”val”]"></a>E[att$=”val”]</h2><p>选择具有 att 属性且属性值为以 val 结尾的字符串的 E 元素。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css"><span class="selector-tag">div</span><span class="selector-attr">[class$="c"]</span> &#123;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">border</span>: 2<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#000</span>;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"abc"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"acb"</span>&gt;</span>2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"bac"</span>&gt;</span>3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>此例，将会命中 1, 3 两个 div，因为匹配到了 class 属性，且属性值以 c 结尾</p>
+<h2 id="E-att-”val”-4"><a href="#E-att-”val”-4" class="headerlink" title="E[att*=”val”]"></a>E[att*=”val”]</h2><p>选择具有 att 属性且属性值为包含 val 的字符串的 E 元素。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css"><span class="selector-tag">div</span><span class="selector-attr">[class*="b"]</span> &#123;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">border</span>: 2<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#000</span>;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"abc"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"acb"</span>&gt;</span>2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"bac"</span>&gt;</span>3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>此例，将会命中所有 div，因为匹配到了 class 属性，且属性值中都包含了 b</p>
+<h2 id="E-att-”val”-5"><a href="#E-att-”val”-5" class="headerlink" title="E[att|=”val”]"></a>E[att|=”val”]</h2><p>如果元素 E 拥有 att 属性，并且值为 val，或者值是以 val-开头的，那么 E 将会被选择。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css"><span class="selector-tag">div</span><span class="selector-attr">[class|="a"]</span> &#123;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">border</span>: 2<span class="selector-tag">px</span> <span class="selector-tag">solid</span> <span class="selector-id">#000</span>;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"a"</span>&gt;</span>0<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"a-test"</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"b-test"</span>&gt;</span>2<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"c-test"</span>&gt;</span>3<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在这个例子中，前 2 个 div 将会被命中：</p>
+<p>第 1 个 div，拥有 class 属性，并且值为 a，所以被命中；</p>
+<p>第 2 个 div，拥有 class 属性，值是 a 开头并紧跟着连接符“-”，所以被命中；</p>
+<h1 id="伪类选择符"><a href="#伪类选择符" class="headerlink" title="伪类选择符"></a>伪类选择符</h1><h2 id="E-link-visited-hover-active"><a href="#E-link-visited-hover-active" class="headerlink" title="E:link,visited,hover,active"></a>E:link,visited,hover,active</h2><p>如果需要给超链接定义：访问前，鼠标悬停，当前被点击，已访问这4种伪类效果，而又没有按照一致的书写顺序，不同的浏览器可能会有不同的表现</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a:link &#123;&#125;</span><br><span class="line">a:visited &#123;&#125;</span><br><span class="line">a:hover &#123;&#125;</span><br><span class="line">a:active &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>可靠的顺序是：l(link)ov(visited)e h(hover)a(active)te, 即用喜欢(love)和讨厌(hate)两个词来概括<br>
+<iframe height="265" scrolling="no" title="love,hate" src="//codepen.io/scliuyang/embed/RYgdQb/?height=265&theme-id=0&default-tab=css,result&embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen <a href="https://codepen.io/scliuyang/pen/RYgdQb/" target="_blank" rel="noopener">love,hate</a> by scliuyang (<a href="https://codepen.io/scliuyang" target="_blank" rel="noopener">@scliuyang</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.
+</iframe>
+</p>
+<h2 id="E-focus"><a href="#E-focus" class="headerlink" title="E:focus"></a>E:focus</h2><p>设置对象在成为输入焦点（该对象的onfocus事件发生）时的样式。</p>
+<h2 id="E-lang"><a href="#E-lang" class="headerlink" title="E:lang"></a>E:lang</h2><p>语言类选择符</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css"><span class="selector-tag">p</span><span class="selector-pseudo">:lang(zh-cmn-Hans)</span> &#123;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">color</span>: <span class="selector-id">#f00</span>;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="css"><span class="selector-tag">p</span><span class="selector-pseudo">:lang(en)</span> &#123;</span></span><br><span class="line"><span class="css">	<span class="selector-tag">color</span>: <span class="selector-id">#090</span>;</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">lang</span>=<span class="string">"zh-cmn-Hans"</span>&gt;</span>大段测试文字<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span>english<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="E-not"><a href="#E-not" class="headerlink" title="E:not"></a>E:not</h2><p>匹配不含有s选择符的元素E,语法E:not(s)，括号内可以填写所有的选择符</p>
+<p>有个列表，每个列表项都有一条底边线，但是最后一项不需要底边线<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.demo</span> <span class="selector-tag">li</span><span class="selector-pseudo">:not(</span><span class="selector-pseudo">:last-child)</span> &#123;</span><br><span class="line">	<span class="attribute">border-bottom</span>: <span class="number">1px</span> solid <span class="number">#ddd</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="root"><a href="#root" class="headerlink" title=":root"></a>:root</h2><p>匹配E元素在文档的根元素,在HTML中，根元素永远是HTML</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-pseudo">:root</span> &#123;</span><br><span class="line">  <span class="attribute">--main-color</span>: hotpink;</span><br><span class="line">  <span class="attribute">--pane-padding</span>: <span class="number">5px</span> <span class="number">42px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>声明全局css变量</p>
+<h2 id="E-first-child"><a href="#E-first-child" class="headerlink" title="E:first-child"></a>E:first-child</h2><p>匹配父元素的第一个子元素E。要使该属性生效，E元素必须是某个元素的子元素，E的父元素最高是body，即E可以是body的子元素</p>
+
+<iframe height="265" scrolling="no" title="E:first-child" src="//codepen.io/scliuyang/embed/eLRXwL/?height=265&theme-id=0&default-tab=html,result&embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen <a href="https://codepen.io/scliuyang/pen/eLRXwL/" target="_blank" rel="noopener">E:first-child</a> by scliuyang (<a href="https://codepen.io/scliuyang" target="_blank" rel="noopener">@scliuyang</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.
+</iframe>
+
+<h2 id="E-last-child"><a href="#E-last-child" class="headerlink" title="E:last-child"></a>E:last-child</h2><p>匹配父元素的最后一个子元素E，和first-child类似</p>
+<h2 id="E-only-child"><a href="#E-only-child" class="headerlink" title="E:only-child"></a>E:only-child</h2><p>匹配父元素仅有的一个子元素E,和first-child类似。即父元素的子元素有且仅有一个E</p>
+<h2 id="E-nth-child-n"><a href="#E-nth-child-n" class="headerlink" title="E:nth-child(n)"></a>E:nth-child(n)</h2><p>匹配父元素的第n个子元素E，假设该子元素不是E，则选择符无效。</p>
+<p>奇偶匹配<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="css"><span class="selector-tag">li</span><span class="selector-pseudo">:nth-child(2n)</span>&#123;<span class="attribute">color</span>:<span class="number">#f00</span>;&#125; <span class="comment">/* 偶数 */</span></span></span><br><span class="line"><span class="css"><span class="selector-tag">li</span><span class="selector-pseudo">:nth-child(2n+1)</span>&#123;<span class="attribute">color</span>:<span class="number">#000</span>;&#125; <span class="comment">/* 奇数 */</span></span></span><br><span class="line"><span class="undefined"></span></span><br><span class="line"><span class="css"><span class="selector-tag">li</span><span class="selector-pseudo">:nth-child(even)</span>&#123;<span class="attribute">color</span>:<span class="number">#f00</span>;&#125; <span class="comment">/* 偶数 */</span></span></span><br><span class="line"><span class="css"><span class="selector-tag">li</span><span class="selector-pseudo">:nth-child(odd)</span>&#123;<span class="attribute">color</span>:<span class="number">#000</span>;&#125; <span class="comment">/* 奇数 */</span></span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span>&gt;</span>列表项一<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span>&gt;</span>列表项二<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span>&gt;</span>列表项三<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">li</span>&gt;</span>列表项四<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+
+<iframe height="265" scrolling="no" title="nth-child" src="//codepen.io/scliuyang/embed/jvwRbZ/?height=265&theme-id=0&default-tab=html,result&embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen <a href="https://codepen.io/scliuyang/pen/jvwRbZ/" target="_blank" rel="noopener">nth-child</a> by scliuyang (<a href="https://codepen.io/scliuyang" target="_blank" rel="noopener">@scliuyang</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.
+</iframe>
+
+<h2 id="E-nth-last-child-n"><a href="#E-nth-last-child-n" class="headerlink" title="E:nth-last-child(n)"></a>E:nth-last-child(n)</h2><p>匹配父元素的倒数第n个子元素E，假设该子元素不是E，则选择符无效。</p>
+<h2 id="E-first-of-type"><a href="#E-first-of-type" class="headerlink" title="E:first-of-type"></a>E:first-of-type</h2>
+<iframe height="265" scrolling="no" title="E:first-of-type" src="//codepen.io/scliuyang/embed/bxRJwY/?height=265&theme-id=0&default-tab=html,result&embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen <a href="https://codepen.io/scliuyang/pen/bxRJwY/" target="_blank" rel="noopener">E:first-of-type</a> by scliuyang (<a href="https://codepen.io/scliuyang" target="_blank" rel="noopener">@scliuyang</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.
+</iframe>
+
+<h2 id="E-last-of-type"><a href="#E-last-of-type" class="headerlink" title="E:last-of-type"></a>E:last-of-type</h2><p>匹配父元素下的所有E子元素中的倒数第一个。</p>
+<h2 id="E-only-of-type"><a href="#E-only-of-type" class="headerlink" title="E:only-of-type"></a>E:only-of-type</h2><p>和only-child差不多，不过父元素可以有多个子元素，但其中的子元素E必须是唯一的，不能出现多个。</p>
+<h2 id="E-nth-of-type-n"><a href="#E-nth-of-type-n" class="headerlink" title="E:nth-of-type(n)"></a>E:nth-of-type(n)</h2><p>匹配父元素的第n个子元素E。<br>匹配的是父元素的第n个为E的子元素（被命中的不一定是第n个子元素，因为匹配的不是第n个子元素，而是第n个为E的子元素）</p>
+<h2 id="E-nth-last-of-type-n"><a href="#E-nth-last-of-type-n" class="headerlink" title="E:nth-last-of-type(n)"></a>E:nth-last-of-type(n)</h2><p>匹配父元素的倒数第n个子元素E。</p>
+<h2 id="E-empty"><a href="#E-empty" class="headerlink" title="E:empty"></a>E:empty</h2><p>匹配没有任何子元素（包括text节点）的元素E。<br>
+<iframe height="265" scrolling="no" title="E:empty" src="//codepen.io/scliuyang/embed/xareeV/?height=265&theme-id=0&default-tab=html,result&embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen <a href="https://codepen.io/scliuyang/pen/xareeV/" target="_blank" rel="noopener">E:empty</a> by scliuyang (<a href="https://codepen.io/scliuyang" target="_blank" rel="noopener">@scliuyang</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.
+</iframe>
+</p>
+<h2 id="E-checked"><a href="#E-checked" class="headerlink" title="E:checked"></a>E:checked</h2><p>匹配用户界面上处于选中状态的元素E。(用于input type为radio与checkbox时)</p>
+<h2 id="E-enabled"><a href="#E-enabled" class="headerlink" title="E:enabled"></a>E:enabled</h2><p>匹配用户界面上处于可用状态的元素E。<br>
+<iframe height="265" scrolling="no" title="E:enabled" src="//codepen.io/scliuyang/embed/EeXJBV/?height=265&theme-id=0&default-tab=html,result&embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen <a href="https://codepen.io/scliuyang/pen/EeXJBV/" target="_blank" rel="noopener">E:enabled</a> by scliuyang (<a href="https://codepen.io/scliuyang" target="_blank" rel="noopener">@scliuyang</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.
+</iframe>
+</p>
+<h2 id="E-disabled"><a href="#E-disabled" class="headerlink" title="E:disabled"></a>E:disabled</h2><p>匹配用户界面上处于禁用状态的元素E。</p>
+<h2 id="E-target"><a href="#E-target" class="headerlink" title="E:target"></a>E:target</h2><p>URL后面跟锚点#，指向文档内某个具体的元素。这个被链接的元素就是目标元素(target element)，:target选择器用于选取当前活动的目标元素。<br>
+<iframe height="265" scrolling="no" title="E:target" src="//codepen.io/scliuyang/embed/yxXrmd/?height=265&theme-id=0&default-tab=html,result&embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen <a href="https://codepen.io/scliuyang/pen/yxXrmd/" target="_blank" rel="noopener">E:target</a> by scliuyang (<a href="https://codepen.io/scliuyang" target="_blank" rel="noopener">@scliuyang</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.
+</iframe>
+</p>
+<h1 id="伪对象选择符"><a href="#伪对象选择符" class="headerlink" title="伪对象选择符"></a>伪对象选择符</h1><h2 id="E-first-letter"><a href="#E-first-letter" class="headerlink" title="E::first-letter"></a>E::first-letter</h2><p>设置对象内的第一个字符的样式。<br>此伪对象仅作用于块对象。内联对象要使用该伪对象，必须先将其设置为块级对象。<br>
+<iframe height="265" scrolling="no" title="E::first-letter" src="//codepen.io/scliuyang/embed/gdRJaz/?height=265&theme-id=0&default-tab=css,result&embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen <a href="https://codepen.io/scliuyang/pen/gdRJaz/" target="_blank" rel="noopener">E::first-letter</a> by scliuyang (<a href="https://codepen.io/scliuyang" target="_blank" rel="noopener">@scliuyang</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.
+</iframe>
+</p>
+<h2 id="E-first-line"><a href="#E-first-line" class="headerlink" title="E:first-line"></a>E:first-line</h2><p>设置对象内的第一行的样式。</p>
+<h2 id="E-before，E-after"><a href="#E-before，E-after" class="headerlink" title="E::before，E::after"></a>E::before，E::after</h2><p>设置在对象前（依据对象树的逻辑结构）发生的内容。用来和content属性一起使用，并且必须定义content属性<br>这个属性常用来实现一些ui特效或者动画效果，可以减少dom元素的数量。</p>
+<h2 id="E-placeholder"><a href="#E-placeholder" class="headerlink" title="E::placeholder"></a>E::placeholder</h2><p>设置对象文字占位符的样式。注意加上浏览器前缀</p>
+<h2 id="E-selection"><a href="#E-selection" class="headerlink" title="E::selection"></a>E::selection</h2><p>设置对象被选择时的样式。</p>
+<ul>
+<li>需要注意的是，::selection只能定义被选择时的background-color，color及text-shadow
+<iframe height="265" scrolling="no" title="E::selection" src="//codepen.io/scliuyang/embed/dqREOV/?height=265&theme-id=0&default-tab=css,result&embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen <a href="https://codepen.io/scliuyang/pen/dqREOV/" target="_blank" rel="noopener">E::selection</a> by scliuyang (<a href="https://codepen.io/scliuyang" target="_blank" rel="noopener">@scliuyang</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.
+</iframe>
+
+</li>
+</ul>
+<h1 id="选择器优先级"><a href="#选择器优先级" class="headerlink" title="选择器优先级"></a>选择器优先级</h1><table>
+<thead>
+<tr>
+<th>编号</th>
+<th>权重</th>
+<th>选择器或样式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1000</td>
+<td>内联样式</td>
+</tr>
+<tr>
+<td>2</td>
+<td>100</td>
+<td>ID选择器：#id{…}</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>10</td>
+<td>类选择器，伪类选择器，属性选择器：.class{…}、:hover{…}、[arrtibute=value]</td>
+</tr>
+<tr>
+<td>4</td>
+<td>1</td>
+<td>标签选择器，伪元素选择器：div{…}、::after{…}</td>
+</tr>
+<tr>
+<td>5</td>
+<td>0</td>
+<td>其他选择器：通配选择器(*)，子选择器(&gt;)，相邻同胞选择器(+)</td>
+</tr>
+<tr>
+<td>6</td>
+<td>无穷大</td>
+<td>important</td>
+</tr>
+</tbody>
+</table>
+
+<iframe height="265" scrolling="no" title="selectorPriority" src="//codepen.io/liuzhaozhao/embed/MqGLvp/?height=265&theme-id=0&default-tab=css,result&embed-version=2" frameborder="no" allowtransparency="true" allowfullscreen="true" style="width: 100%;">See the Pen <a href="https://codepen.io/liuzhaozhao/pen/MqGLvp/" target="_blank" rel="noopener">selectorPriority</a> by liuzhaozhao828 (<a href="https://codepen.io/liuzhaozhao" target="_blank" rel="noopener">@liuzhaozhao</a>) on <a href="https://codepen.io" target="_blank" rel="noopener">CodePen</a>.
+</iframe>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>scliuyang</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://onlinerobotfrontend.github.io/Blog/2018/09/05/selectors/" title="css属性:Selectors选择符">https://onlinerobotfrontend.github.io/Blog/2018/09/05/selectors/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/Blog/tags/css基础/" rel="tag"># css基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Blog/2018/08/30/React Life cycle/" rel="next" title="React 生命周期">
+                <i class="fa fa-chevron-left"></i> React 生命周期
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Blog/2018/09/12/media/" rel="prev" title="css属性:内容与媒体查询">
+                css属性:内容与媒体查询 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNzQ4NC8xNDAxNg=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/Blog/images/avatar.jpeg"
+                alt="OnlineRobotFrontEnd" />
+            
+              <p class="site-author-name" itemprop="name">OnlineRobotFrontEnd</p>
+              <p class="site-description motion-element" itemprop="description">京东数科在线机器人前端团队</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/Blog/archives/">
+                
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/Blog/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/Blog/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#元素选择符"><span class="nav-number">1.</span> <span class="nav-text">元素选择符</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#通配选择符"><span class="nav-number">1.1.</span> <span class="nav-text">通配选择符 *</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类型选择符"><span class="nav-number">1.2.</span> <span class="nav-text">类型选择符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ID-选择符"><span class="nav-number">1.3.</span> <span class="nav-text">ID 选择符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#类选择符"><span class="nav-number">1.4.</span> <span class="nav-text">类选择符</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#关系选择符"><span class="nav-number">2.</span> <span class="nav-text">关系选择符</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#包含选择符-E-F"><span class="nav-number">2.1.</span> <span class="nav-text">包含选择符(E F)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#子选择符-E-gt-F"><span class="nav-number">2.2.</span> <span class="nav-text">子选择符(E &gt; F)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#相邻选择符-E-F"><span class="nav-number">2.3.</span> <span class="nav-text">相邻选择符(E + F)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#兄弟选择符-E-F"><span class="nav-number">2.4.</span> <span class="nav-text">兄弟选择符(E ~ F)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#属性选择符"><span class="nav-number">3.</span> <span class="nav-text">属性选择符</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#E-att"><span class="nav-number">3.1.</span> <span class="nav-text">E[att]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-att-”val”"><span class="nav-number">3.2.</span> <span class="nav-text">E[att=”val”]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-att-”val”-1"><span class="nav-number">3.3.</span> <span class="nav-text">E[att~=”val”]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-att-”val”-2"><span class="nav-number">3.4.</span> <span class="nav-text">E[att^=”val”]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-att-”val”-3"><span class="nav-number">3.5.</span> <span class="nav-text">E[att$=”val”]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-att-”val”-4"><span class="nav-number">3.6.</span> <span class="nav-text">E[att*=”val”]</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-att-”val”-5"><span class="nav-number">3.7.</span> <span class="nav-text">E[att|=”val”]</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#伪类选择符"><span class="nav-number">4.</span> <span class="nav-text">伪类选择符</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#E-link-visited-hover-active"><span class="nav-number">4.1.</span> <span class="nav-text">E:link,visited,hover,active</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-focus"><span class="nav-number">4.2.</span> <span class="nav-text">E:focus</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-lang"><span class="nav-number">4.3.</span> <span class="nav-text">E:lang</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-not"><span class="nav-number">4.4.</span> <span class="nav-text">E:not</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#root"><span class="nav-number">4.5.</span> <span class="nav-text">:root</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-first-child"><span class="nav-number">4.6.</span> <span class="nav-text">E:first-child</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-last-child"><span class="nav-number">4.7.</span> <span class="nav-text">E:last-child</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-only-child"><span class="nav-number">4.8.</span> <span class="nav-text">E:only-child</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-nth-child-n"><span class="nav-number">4.9.</span> <span class="nav-text">E:nth-child(n)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-nth-last-child-n"><span class="nav-number">4.10.</span> <span class="nav-text">E:nth-last-child(n)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-first-of-type"><span class="nav-number">4.11.</span> <span class="nav-text">E:first-of-type</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-last-of-type"><span class="nav-number">4.12.</span> <span class="nav-text">E:last-of-type</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-only-of-type"><span class="nav-number">4.13.</span> <span class="nav-text">E:only-of-type</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-nth-of-type-n"><span class="nav-number">4.14.</span> <span class="nav-text">E:nth-of-type(n)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-nth-last-of-type-n"><span class="nav-number">4.15.</span> <span class="nav-text">E:nth-last-of-type(n)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-empty"><span class="nav-number">4.16.</span> <span class="nav-text">E:empty</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-checked"><span class="nav-number">4.17.</span> <span class="nav-text">E:checked</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-enabled"><span class="nav-number">4.18.</span> <span class="nav-text">E:enabled</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-disabled"><span class="nav-number">4.19.</span> <span class="nav-text">E:disabled</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-target"><span class="nav-number">4.20.</span> <span class="nav-text">E:target</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#伪对象选择符"><span class="nav-number">5.</span> <span class="nav-text">伪对象选择符</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#E-first-letter"><span class="nav-number">5.1.</span> <span class="nav-text">E::first-letter</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-first-line"><span class="nav-number">5.2.</span> <span class="nav-text">E:first-line</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-before，E-after"><span class="nav-number">5.3.</span> <span class="nav-text">E::before，E::after</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-placeholder"><span class="nav-number">5.4.</span> <span class="nav-text">E::placeholder</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#E-selection"><span class="nav-number">5.5.</span> <span class="nav-text">E::selection</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#选择器优先级"><span class="nav-number">6.</span> <span class="nav-text">选择器优先级</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OnlineRobotFrontEnd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/Blog/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/Blog/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/Blog/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/Blog/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/Blog/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

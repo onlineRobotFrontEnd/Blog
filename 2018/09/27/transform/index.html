@@ -1,0 +1,1442 @@
+<!DOCTYPE html>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link href="/Blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/Blog/css/main.css?v=6.3.0" rel="stylesheet" type="text/css" />
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/Blog/images/favicon.ico?v=6.3.0">
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/Blog/',
+    scheme: 'Gemini',
+    version: '6.3.0',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: false,
+    fastclick: false,
+    lazyload: false,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+  
+
+
+
+
+  <meta name="description" content="参考链接：  css.doyoe.com css2.1中文版 MDN  transform">
+<meta name="keywords" content="css基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="css属性:变化(Transform)">
+<meta property="og:url" content="https://onlinerobotfrontend.github.io/Blog/2018/09/27/transform/index.html">
+<meta property="og:site_name" content="OnlineRobotFrontEnd">
+<meta property="og:description" content="参考链接：  css.doyoe.com css2.1中文版 MDN  transform">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2020-08-05T13:06:22.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="css属性:变化(Transform)">
+<meta name="twitter:description" content="参考链接：  css.doyoe.com css2.1中文版 MDN  transform">
+
+
+
+
+
+
+  <link rel="canonical" href="https://onlinerobotfrontend.github.io/Blog/2018/09/27/transform/"/>
+
+
+
+<script type="text/javascript" id="page.configurations">
+  CONFIG.page = {
+    sidebar: "",
+  };
+</script>
+
+  <title>css属性:变化(Transform) | OnlineRobotFrontEnd</title>
+  
+
+
+
+
+
+
+
+
+
+  <noscript>
+  <style type="text/css">
+    .use-motion .motion-element,
+    .use-motion .brand,
+    .use-motion .menu-item,
+    .sidebar-inner,
+    .use-motion .post-block,
+    .use-motion .pagination,
+    .use-motion .comments,
+    .use-motion .post-header,
+    .use-motion .post-body,
+    .use-motion .collection-title { opacity: initial; }
+
+    .use-motion .logo,
+    .use-motion .site-title,
+    .use-motion .site-subtitle {
+      opacity: initial;
+      top: initial;
+    }
+
+    .use-motion {
+      .logo-line-before i { left: initial; }
+      .logo-line-after i { right: initial; }
+    }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/Blog/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">OnlineRobotFrontEnd</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+    
+      
+        <p class="site-subtitle">技术博客</p>
+      
+    
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  
+    <ul id="menu" class="menu">
+      
+        
+        
+        
+          
+          <li class="menu-item menu-item-home">
+    <a href="/Blog/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-home"></i> <br />首页</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-tags">
+    <a href="/Blog/tags/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />标签</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-categories">
+    <a href="/Blog/categories/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-th"></i> <br />分类</a>
+  </li>
+        
+        
+        
+          
+          <li class="menu-item menu-item-archives">
+    <a href="/Blog/archives/" rel="section">
+      <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />归档</a>
+  </li>
+
+      
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />搜索</a>
+        </li>
+      
+    </ul>
+  
+
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+  
+
+
+
+</div>
+    </header>
+
+    
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+            
+
+          
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://onlinerobotfrontend.github.io/Blog/Blog/2018/09/27/transform/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="OnlineRobotFrontEnd">
+      <meta itemprop="description" content="京东数科在线机器人前端团队">
+      <meta itemprop="image" content="/Blog/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="OnlineRobotFrontEnd">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">css属性:变化(Transform)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+
+              
+                
+              
+
+              <time title="创建时间：2018-09-27 00:00:00" itemprop="dateCreated datePublished" datetime="2018-09-27T00:00:00+08:00">2018-09-27</time>
+            
+
+            
+              
+
+              
+                
+                <span class="post-meta-divider">|</span>
+                
+
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">更新于</span>
+                
+                <time title="修改时间：2020-08-05 21:06:22" itemprop="dateModified" datetime="2020-08-05T21:06:22+08:00">2020-08-05</time>
+              
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/Blog/categories/css-basic/" itemprop="url" rel="index"><span itemprop="name">css basic</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>参考链接：</p>
+<ul>
+<li><a href="https://css.doyoe.com/" target="_blank" rel="noopener">css.doyoe.com</a></li>
+<li><a href="http://www.ayqy.net/doc/css2-1/cover.html" target="_blank" rel="noopener">css2.1中文版</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS" target="_blank" rel="noopener">MDN</a></li>
+</ul>
+<h2 id="transform"><a href="#transform" class="headerlink" title="transform"></a>transform</h2><a id="more"></a>
+<h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><p> <strong>transform</strong> 属性允许你修改CSS视觉格式模型的坐标空间。使用它，元素可以被转换（translate）、旋转（rotate）、缩放（scale）、倾斜（skew）</p>
+<blockquote>
+<p>CSS transform 属性 , 只对 block 级元素生效！</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">初始值          none</span><br><span class="line">适用元素        可变换元素</span><br><span class="line">是否是继承属性	否</span><br><span class="line">适用媒体        视觉</span><br><span class="line">计算值          指定值，但相对长度会转换为绝对长度</span><br><span class="line">动画性          是</span><br></pre></td></tr></table></figure>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">/* Keyword values */</span><br><span class="line">transform: none;</span><br><span class="line"></span><br><span class="line">/* Function values */</span><br><span class="line">transform: matrix(1.0, 2.0, 3.0, 4.0, 5.0, 6.0);</span><br><span class="line">transform: translate(12px, 50%);</span><br><span class="line">transform: translateX(2em);</span><br><span class="line">transform: translateY(3in);</span><br><span class="line">transform: scale(2, 0.5);</span><br><span class="line">transform: scaleX(2);</span><br><span class="line">transform: scaleY(0.5);</span><br><span class="line">transform: rotate(0.5turn);</span><br><span class="line">transform: skew(30deg, 20deg);</span><br><span class="line">transform: skewX(30deg);</span><br><span class="line">transform: skewY(1.07rad);</span><br><span class="line">transform: matrix3d(1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0, 16.0);</span><br><span class="line">transform: translate3d(12px, 50%, 3em);</span><br><span class="line">transform: translateZ(2px);</span><br><span class="line">transform: scale3d(2.5, 1.2, 0.3);</span><br><span class="line">transform: scaleZ(0.3);</span><br><span class="line">transform: rotate3d(1, 2.0, 3.0, 10deg);</span><br><span class="line">transform: rotateX(10deg);</span><br><span class="line">transform: rotateY(10deg);</span><br><span class="line">transform: rotateZ(10deg);</span><br><span class="line">transform: perspective(17px);</span><br><span class="line"></span><br><span class="line">/* Multiple function values */</span><br><span class="line">transform: translateX(10px) rotate(10deg) translateY(5px);</span><br><span class="line"></span><br><span class="line">/* Global values */</span><br><span class="line">transform: inherit;</span><br><span class="line">transform: initial;</span><br><span class="line">transform: unset;</span><br></pre></td></tr></table></figure>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><ul>
+<li>&lt;<strong>transform-function</strong>&gt;<br>至少一个 CSS transform functions 被应用</li>
+<li><strong>none</strong><br>指定为 不应用transform</li>
+</ul>
+<h3 id=""><a href="#" class="headerlink" title=""></a><transform-function></transform-function></h3><h4 id="2D变化"><a href="#2D变化" class="headerlink" title="2D变化"></a>2D变化</h4><ul>
+<li><strong>matrix()</strong> 用六个指定的值来指定一个均匀的二维（2D）变换矩阵</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">transform:  matrix(a, c, b, d, tx, ty)</span><br><span class="line"></span><br><span class="line">/* a, b, c, d 创建了变形矩阵 </span><br><span class="line">   ┌     ┐ </span><br><span class="line">   │ a b │</span><br><span class="line">   │ c d │</span><br><span class="line">   └     ┘</span><br><span class="line">   tx, ty是变形的值 .  */</span><br><span class="line">   </span><br><span class="line">1.平移效果：</span><br><span class="line">transform: matrix(1, 0, 0, 1, tx, ty);等同于transform：translate(tx, ty);</span><br><span class="line"></span><br><span class="line">2.缩放效果：</span><br><span class="line">transform: matrix(sx,0,0,sy,0,0); 等同于transform：scale(sx, sy);</span><br><span class="line"></span><br><span class="line">3.旋转效果：</span><br><span class="line">transform: matrix(cosθ,sinθ,-sinθ,cosθ,0,0); 等同于transform：rotate(θ); </span><br><span class="line">4.拉伸效果：</span><br><span class="line">transform：matrix(1,tan(θy),tan(θx),1,0,0); 等同于transform: skew(θx + &quot;deg&quot;，θy+ &quot;deg&quot;);</span><br></pre></td></tr></table></figure>
+<p><a href="http://www.css88.com/tool/css3Preview/Transform-Matrix.html" target="_blank" rel="noopener">css transform matrix 工具</a></p>
+<ul>
+<li><strong>translate()</strong> 指定对象的2D translation（2D平移）。第一个参数对应X轴，第二个参数对应Y轴。如果第二个参数未提供，则默认值为0</li>
+<li><strong>translateX()</strong> 指定对象X轴（水平方向）的平移，translate(tx, 0) 的简写形式</li>
+<li><strong>translateY()</strong> 指定对象Y轴（垂直方向）的平移，translate(0, ty)的简写形式</li>
+<li><strong>rotate()</strong> 指定对象的2D rotation（2D旋转），需先有 &lt;’ transform-origin ‘&gt; 属性的定义。移动量由指定角度定义;如果为正值，则运动将为顺时针，如果为负值，则为逆时针 。 180°的旋转称为点反射 (point reflection)。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rotate(&lt;angle&gt;)</span><br><span class="line">&lt;angle&gt; 代表旋转的角度。正角表示顺时针旋转，负角表示逆时针旋转</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>scale()</strong> </li>
+</ul>
+<ol>
+<li>指定对象的2D scale（2D缩放）。第一个参数对应X轴，第二个参数对应Y轴。如果第二个参数未提供，则默认取第一个参数的值。</li>
+<li>当超出 [-1, 1]范围外时，缩放将在坐标方向上放大元素；当在该范围内时，它在该方向收缩元素。当等于1时，它什么也不做，当它为负时，它执行点反射和大小修改。</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">scale(sx) or</span><br><span class="line">scale(sx, sy)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>scaleX()</strong> 指定对象X轴的（水平方向）缩放</li>
+</ul>
+<ol>
+<li>scaleX(sx) 是 scale(sx, 1) 和 scale3d(sx, 1, 1) 的简写形式。</li>
+<li>scaleX(-1) 表示通过原点的垂直轴定义轴对称（由 transform-origin 属性指定）。</li>
+</ol>
+<ul>
+<li><strong>scaleY()</strong> 指定对象Y轴的（垂直方向）缩放</li>
+</ul>
+<ol>
+<li>scaleY(sy) 是 scale(1, sy) 和 scale3d(1, sy, 1) 的简写形式。</li>
+<li>scaleY(-1) 定义了通过原点的水平轴的轴对称（由 transform-origin 属性指定）。</li>
+</ol>
+<ul>
+<li><strong>skew()</strong> 指定对象skew transformation（斜切扭曲）。第一个参数对应X轴，第二个参数对应Y轴。如果第二个参数未提供，则默认值为0</li>
+</ul>
+<blockquote>
+<p>==注意css斜切坐标系的x，y轴==</p>
+</blockquote>
+<ul>
+<li><strong>skewX()</strong><br>指定对象X轴的（水平方向）扭曲</li>
+<li><strong>skewY()</strong><br>指定对象Y轴的（垂直方向）扭曲</li>
+</ul>
+<p><a href="https://codepen.io/lord2416/pen/YjLgWO" target="_blank" rel="noopener">Transform 2D 代码演示</a></p>
+<h4 id="3D变化"><a href="#3D变化" class="headerlink" title="3D变化"></a>3D变化</h4><ul>
+<li><strong>matrix3d()</strong> 用一个 4 × 4 的齐次矩阵来描述一个三维（3D）变换</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">transform: matrix3d(a1, b1, c1, d1, a2, b2, c2, d2, a3, b3, c3, d3, a4, b4, c4, d4);</span><br><span class="line"></span><br><span class="line">1.平移变换X, 对应translateX(tx)：</span><br><span class="line">matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, tx, 0, 0, 1)</span><br><span class="line"></span><br><span class="line">2.平移变换Y, 对应translateY(ty)：</span><br><span class="line">matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, ty, 0, 1)</span><br><span class="line"></span><br><span class="line">3.平移变换，对应translateZ(tz)：</span><br><span class="line">matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, tz, 1)</span><br><span class="line"></span><br><span class="line">4.多维平移:</span><br><span class="line">matrix3d(1,0,0,0,0,1,0,0,0,0,1,0,tx,ty,tz,1)</span><br><span class="line"></span><br><span class="line">5.多维尺度：</span><br><span class="line">matrix3d(cx, 0, 0, 0, 0, cy, 0, 0, 0, 0, cz, 0, 0, 0, 0, 1 );</span><br><span class="line"></span><br><span class="line">6.旋转变换：</span><br><span class="line">X轴：matrix3d(1,0,0,0,0,cos(θ),sin(θ),0,0,-sin(θ),cos(θ),0,0,0,0,1);</span><br><span class="line">Y轴：matrix3d(cos(θ),0,-sin(θ),0,0,1,0,0,sin(θ),0,cos(θ),0,0,0,0,1);</span><br><span class="line">Z轴：matrix3d(cos(θ),sin(θ),0,0,-sin(θ),cos(θ),0,0,0,0,1,0,0,0,0,1);</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>translate3d()</strong> 指定对象的3D位移。第1个参数对应X轴，第2个参数对应Y轴，第3个参数对应Z轴，参数不允许省略</li>
+</ul>
+<p><a href="https://codepen.io/lord2416/pen/EppBgy" target="_blank" rel="noopener">Transform 3D 代码演示</a></p>
+<h2 id="transform-origin"><a href="#transform-origin" class="headerlink" title="transform-origin"></a>transform-origin</h2><h3 id="概述-1"><a href="#概述-1" class="headerlink" title="概述"></a>概述</h3><p><strong>transform-origin</strong> 属性让你更改一个元素变形的原点。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">初始值          50% 50% 0</span><br><span class="line">适用于          可变换元素</span><br><span class="line">是否可继承      否</span><br><span class="line">适用媒体        视觉</span><br><span class="line">计算值          除了指定绝对值，否则都为百分比</span><br><span class="line">动画性          当值为数值时</span><br></pre></td></tr></table></figure>
+<h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">/* One-value syntax */</span><br><span class="line">transform-origin: 2px;</span><br><span class="line">transform-origin: bottom;</span><br><span class="line"></span><br><span class="line">/* x-offset | y-offset */</span><br><span class="line">transform-origin: 3cm 2px;</span><br><span class="line"></span><br><span class="line">/* x-offset-keyword | y-offset */</span><br><span class="line">transform-origin: left 2px;</span><br><span class="line"></span><br><span class="line">/* x-offset-keyword | y-offset-keyword */</span><br><span class="line">transform-origin: right top;</span><br><span class="line"></span><br><span class="line">/* y-offset-keyword | x-offset-keyword */</span><br><span class="line">transform-origin: top right;</span><br><span class="line"></span><br><span class="line">/* x-offset | y-offset | z-offset */</span><br><span class="line">transform-origin: 2px 30% 10px;</span><br><span class="line"></span><br><span class="line">/* x-offset-keyword | y-offset | z-offset */</span><br><span class="line">transform-origin: left 5px -3px;</span><br><span class="line"></span><br><span class="line">/* x-offset-keyword | y-offset-keyword | z-offset */</span><br><span class="line">transform-origin: right bottom 2cm;</span><br><span class="line"></span><br><span class="line">/* y-offset-keyword | x-offset-keyword | z-offset */</span><br><span class="line">transform-origin: bottom right 2cm;</span><br><span class="line"></span><br><span class="line">/* Global values */</span><br><span class="line">transform-origin: inherit;</span><br><span class="line">transform-origin: initial;</span><br><span class="line">transform-origin: unset;</span><br></pre></td></tr></table></figure>
+<p><strong>transform-origin</strong>属性可以使用一个，两个或三个值来指定，其中每个值都表示一个偏移量。 没有明确定义的偏移将重置为其对应的初始值。</p>
+<p>如果定义了两个或更多值并且没有值的关键字，或者唯一使用的关键字是center，则第一个值表示水平偏移量，第二个值表示垂直偏移量。</p>
+<ul>
+<li>一个值：<ul>
+<li>必须是<length>，<percentage>，或 left, center, right, top, bottom关键字中的一个。</percentage></length></li>
+</ul>
+</li>
+<li>两个值：<ul>
+<li>其中一个必须是<length>，<percentage>，或left, center, right关键字中的一个。</percentage></length></li>
+<li>另一个必须是<length>，<percentage>，或top, center, bottom关键字中的一个。</percentage></length></li>
+</ul>
+</li>
+<li>三个值：<ul>
+<li>前两个值和只有两个值时的用法相同。</li>
+<li>第三个值必须是<length>。它始终代表Z轴偏移量。</length></li>
+</ul>
+</li>
+</ul>
+<h3 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h3><ul>
+<li>x-offset<ul>
+<li>定义变形中心距离盒模型的左侧的<length>或<percentage>偏移值。</percentage></length></li>
+</ul>
+</li>
+<li>offset-keyword<ul>
+<li>left，right，top，bottom或center中之一，定义相对应的变形中心偏移。</li>
+</ul>
+</li>
+<li>y-offset<ul>
+<li>定义变形中心距离盒模型的顶的<length>或<percentage>偏移值。</percentage></length></li>
+</ul>
+</li>
+<li>x-offset-keyword<ul>
+<li>left，right或center中之一，定义相对应的变形中心偏移。</li>
+</ul>
+</li>
+<li>y-offset-keyword<ul>
+<li>top，bottom或center中之一，定义相对应的变形中心偏移。</li>
+</ul>
+</li>
+<li>z-offset<ul>
+<li>定义变形中心距离用户视线（z=0处）的<length>（不能是<percentage>）偏移值。</percentage></length></li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>keyword</th>
+<th>value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>left</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>center</td>
+<td>50%</td>
+</tr>
+<tr>
+<td>right</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>top</td>
+<td>0%</td>
+</tr>
+<tr>
+<td>bottom</td>
+<td>100%</td>
+</tr>
+</tbody>
+</table>
+<p><a href="https://codepen.io/lord2416/pen/EppBgy" target="_blank" rel="noopener">transform-origin 代码示例</a></p>
+<h2 id="transform-style"><a href="#transform-style" class="headerlink" title="transform-style"></a>transform-style</h2><h3 id="概述-2"><a href="#概述-2" class="headerlink" title="概述"></a>概述</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">初始值              flat</span><br><span class="line">适用元素            可变换元素</span><br><span class="line">是否是继承属性      否</span><br><span class="line">适用媒体            视觉</span><br><span class="line">计算值              指定值</span><br><span class="line">动画性              否</span><br></pre></td></tr></table></figure>
+<h3 id="示例-2"><a href="#示例-2" class="headerlink" title="示例"></a>示例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">transform-style: preserve-3d</span><br><span class="line">transform-style: flat</span><br><span class="line"></span><br><span class="line">transform-style: inherit</span><br></pre></td></tr></table></figure>
+<h3 id="语法-2"><a href="#语法-2" class="headerlink" title="语法"></a>语法</h3><ul>
+<li><strong>preserve-3d</strong><ul>
+<li>指定子元素定位在三维空间内</li>
+</ul>
+</li>
+<li><strong>flat</strong><ul>
+<li>指定子元素位于此元素所在平面内</li>
+</ul>
+</li>
+</ul>
+<h2 id="perspective"><a href="#perspective" class="headerlink" title="perspective"></a>perspective</h2><h3 id="概述-3"><a href="#概述-3" class="headerlink" title="概述"></a>概述</h3><ul>
+<li><p><strong>perspective</strong> 属性指定了观察者与z=0平面的距离，使具有三维位置变换的元素产生透视效果。z&gt;0的三维元素比正常大，而z&lt;0时则比正常小，大小程度由该属性的值决定。</p>
+</li>
+<li><p>三维元素在观察者后面的部分不会绘制出来，即z轴坐标值大于perspective属性值的部分。</p>
+</li>
+<li><p>默认情况下，消失点位于元素的中心，但是可以通过设置perspective-origin属性来改变其位置。</p>
+</li>
+<li><p>当该属性值不为0和none时，会创建新的层叠上下文。</p>
+</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">默认值：    none</span><br><span class="line">适用于：    变换元素</span><br><span class="line">继承性：    无</span><br><span class="line">动画性：    当值为&lt;length&gt;时</span><br><span class="line">计算值：    绝对长度或「none」</span><br><span class="line">媒体：      视觉</span><br></pre></td></tr></table></figure>
+<h3 id="示例-3"><a href="#示例-3" class="headerlink" title="示例"></a>示例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">/* Keyword value */</span><br><span class="line">perspective: none;</span><br><span class="line"></span><br><span class="line">/* &lt;length&gt; values */</span><br><span class="line">perspective: 20px;  </span><br><span class="line">perspective: 3.5em;</span><br><span class="line"></span><br><span class="line">/* Global values */</span><br><span class="line">perspective: inherit;</span><br><span class="line">perspective: initial;</span><br><span class="line">perspective: unset;</span><br></pre></td></tr></table></figure>
+<p><a href="https://codepen.io/lord2416/pen/EppBgy" target="_blank" rel="noopener">perspective 代码实例</a></p>
+<h2 id="perspective-origin"><a href="#perspective-origin" class="headerlink" title="perspective-origin"></a>perspective-origin</h2><h3 id="概述-4"><a href="#概述-4" class="headerlink" title="概述"></a>概述</h3><p><strong>perspective-origin</strong>属性决定了观察者正在观看的位置，即灭点(vanishing point)位置。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">默认值      50% 50%，效果等同于center center</span><br><span class="line">适用于      可变换元素</span><br><span class="line">继承性      无</span><br><span class="line">动画性      当值为数值时</span><br><span class="line">计算值      除了指定绝对值，否则都为百分比</span><br><span class="line">媒体        视觉</span><br></pre></td></tr></table></figure>
+<h3 id="示例-4"><a href="#示例-4" class="headerlink" title="示例"></a>示例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">/* One-value syntax */</span><br><span class="line">perspective-origin: x-position;</span><br><span class="line"></span><br><span class="line">/* Two-value syntax */</span><br><span class="line">perspective-origin: x-position y-position;</span><br><span class="line"></span><br><span class="line">/* When both x-position and y-position are keywords,</span><br><span class="line">   the following is also valid */</span><br><span class="line">perspective-origin: y-position x-position;</span><br><span class="line"></span><br><span class="line">/* Global values */</span><br><span class="line">perspective-origin: inherit;</span><br><span class="line">perspective-origin: initial;</span><br><span class="line">perspective-origin: unset;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>该属性提供2个参数值。</li>
+<li>如果提供两个，第一个用于横坐标，第二个用于纵坐标。</li>
+<li>如果只提供一个，该值将用于横坐标；纵坐标将默认为center。</li>
+</ul>
+<h3 id="语法-3"><a href="#语法-3" class="headerlink" title="语法"></a>语法</h3><ul>
+<li><strong>x-position</strong>指定消失点的横坐标，其值有以下形式：<ul>
+<li><percentage> 百分比，相对于元素宽度，可为负值。</percentage></li>
+<li><length> 长度值，可为负值。</length></li>
+<li>left，关键字，0值的简记。</li>
+<li>center，关键字，50%的简记。</li>
+<li>right，关键字，100%的简记。</li>
+</ul>
+</li>
+<li><strong>y-position</strong>指定消失点的纵坐标，其值有以下形式：<br>  -<percentage> 百分比，相对于元素的高度，可为负值。<ul>
+<li><length> 长度值，可为负值。</length></li>
+<li>top，关键字，0值得简记。</li>
+<li>center，关键字，50%的简记。</li>
+<li>bottom，关键字，100%的简记。</li>
+</ul>
+</percentage></li>
+</ul>
+<p><a href="https://codepen.io/lord2416/pen/yqxEjx" target="_blank" rel="noopener">perspective-origin代码示例</a></p>
+<h2 id="backface-visibility"><a href="#backface-visibility" class="headerlink" title="backface-visibility"></a>backface-visibility</h2><h3 id="概述-5"><a href="#概述-5" class="headerlink" title="概述"></a>概述</h3><p><strong>backface-visibility</strong>属性指定当元素背面朝向观察者时是否可见。元素的背面总是透明的，当其朝向观察者时，显示正面的镜像。</p>
+<ul>
+<li>决定一个元素背面面向用户时是否可见，需要直接在该元素上定义<br><strong>backface-visibility</strong>属性，而不能在其父元素上，因为该属性默认为不可继承。</li>
+<li>因为2D变换无透视效果，故该属性对2D变换无效。</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">默认值      visible</span><br><span class="line">适用于      变换元素</span><br><span class="line">继承性      无</span><br><span class="line">动画性      否</span><br><span class="line">计算值      指定值</span><br><span class="line">媒体        视觉</span><br></pre></td></tr></table></figure>
+<h3 id="示例-5"><a href="#示例-5" class="headerlink" title="示例"></a>示例</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">backface-visibility: visible</span><br><span class="line">backface-visibility: hidden</span><br></pre></td></tr></table></figure>
+<h3 id="语法-4"><a href="#语法-4" class="headerlink" title="语法"></a>语法</h3><ul>
+<li><strong>visible</strong>：<br>指定元素背面可见，允许显示正面的镜像。</li>
+<li><strong>hidden</strong>：<br>指定元素背面不可见</li>
+</ul>
+<p><a href="https://codepen.io/lord2416/pen/yqxEjx" target="_blank" rel="noopener">backface-visibility代码实例</a></p>
+
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>leonliu</li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://onlinerobotfrontend.github.io/Blog/2018/09/27/transform/" title="css属性:变化(Transform)">https://onlinerobotfrontend.github.io/Blog/2018/09/27/transform/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明出处！</li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/Blog/tags/css基础/" rel="tag"># css基础</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Blog/2018/09/27/transition/" rel="next" title="css属性:过渡(Transition)">
+                <i class="fa fa-chevron-left"></i> css属性:过渡(Transition)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Blog/2018/09/28/animation/" rel="prev" title="css属性:动画(Animation)">
+                css属性:动画(Animation) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zNzQ4NC8xNDAxNg=="></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/Blog/images/avatar.jpeg"
+                alt="OnlineRobotFrontEnd" />
+            
+              <p class="site-author-name" itemprop="name">OnlineRobotFrontEnd</p>
+              <p class="site-description motion-element" itemprop="description">京东数科在线机器人前端团队</p>
+          </div>
+
+          
+            <nav class="site-state motion-element">
+              
+                <div class="site-state-item site-state-posts">
+                
+                  <a href="/Blog/archives/">
+                
+                    <span class="site-state-item-count">29</span>
+                    <span class="site-state-item-name">日志</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-categories">
+                  <a href="/Blog/categories/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">11</span>
+                    <span class="site-state-item-name">分类</span>
+                  </a>
+                </div>
+              
+
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/Blog/tags/index.html">
+                    
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                      
+                    
+                    <span class="site-state-item-count">14</span>
+                    <span class="site-state-item-name">标签</span>
+                  </a>
+                </div>
+              
+            </nav>
+          
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+            
+          
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#transform"><span class="nav-number">1.</span> <span class="nav-text">transform</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述"><span class="nav-number">1.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例"><span class="nav-number">1.2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法"><span class="nav-number">1.3.</span> <span class="nav-text">语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#"><span class="nav-number">1.4.</span> <span class="nav-text"></span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2D变化"><span class="nav-number">1.4.1.</span> <span class="nav-text">2D变化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3D变化"><span class="nav-number">1.4.2.</span> <span class="nav-text">3D变化</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#transform-origin"><span class="nav-number">2.</span> <span class="nav-text">transform-origin</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述-1"><span class="nav-number">2.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例-1"><span class="nav-number">2.2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法-1"><span class="nav-number">2.3.</span> <span class="nav-text">语法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#transform-style"><span class="nav-number">3.</span> <span class="nav-text">transform-style</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述-2"><span class="nav-number">3.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例-2"><span class="nav-number">3.2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法-2"><span class="nav-number">3.3.</span> <span class="nav-text">语法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#perspective"><span class="nav-number">4.</span> <span class="nav-text">perspective</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述-3"><span class="nav-number">4.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例-3"><span class="nav-number">4.2.</span> <span class="nav-text">示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#perspective-origin"><span class="nav-number">5.</span> <span class="nav-text">perspective-origin</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述-4"><span class="nav-number">5.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例-4"><span class="nav-number">5.2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法-3"><span class="nav-number">5.3.</span> <span class="nav-text">语法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#backface-visibility"><span class="nav-number">6.</span> <span class="nav-text">backface-visibility</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#概述-5"><span class="nav-number">6.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#示例-5"><span class="nav-number">6.2.</span> <span class="nav-text">示例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#语法-4"><span class="nav-number">6.3.</span> <span class="nav-text">语法</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">OnlineRobotFrontEnd</span>
+
+  
+
+  
+</div>
+
+
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动 v3.7.1</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/theme-next/hexo-theme-next">NexT.Gemini</a> v6.3.0</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/Blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/utils.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/Blog/js/src/motion.js?v=6.3.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/affix.js?v=6.3.0"></script>
+
+  <script type="text/javascript" src="/Blog/js/src/schemes/pisces.js?v=6.3.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/Blog/js/src/scrollspy.js?v=6.3.0"></script>
+<script type="text/javascript" src="/Blog/js/src/post-details.js?v=6.3.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/Blog/js/src/bootstrap.js?v=6.3.0"></script>
+
+
+
+  
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/Blog/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
